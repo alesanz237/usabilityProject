@@ -2,14 +2,14 @@
 <html lang="en">
 
 <head>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>UPRM Document Management System</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -49,14 +49,22 @@
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Password" name="password" type="password" value="" 		required>
+                      <div >
+                                    <form name="userForm" >
+                                        <input class="form-control" placeholder="E-mail" id="email" type="email" ng-model="myInput" autofocus required>
+                                        <br>
+                                        <input class="form-control" placeholder="Password" id="password" type="password" ng-model="myInput" value="" required>
+                                        <br>
+                                    </form>
+
                                 </div>
-                                <div class="checkbox">
+                                <!-- <div class="checkbox">
                                     <label>
                                         <input name="remember" type="checkbox" value="Remember Me">Remember Me
                                     </label>
-                                </div>
+                                </div> -->
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a>
+                                <a class="btn btn-lg btn-success btn-block" onclick="goToPage()">Login</a>
                             </fieldset>
                         </form>
                     </div>
@@ -64,6 +72,27 @@
             </div>
         </div>
     </div>
+    <script>
+        function goToPage(){
+            var email = $('#email').val();
+            var password = $('#password').val();
+            if (email == "student@upr.edu" && password.length > 0) {
+                window.location.assign("index.html");
+            }
+            else if (email == "professor@upr.edu" && password.length > 0) {
+                window.location.assign("index.html");
+            }
+            else if (email == "assistant@upr.edu" && password.length > 0) {
+                window.location.assign("index.html");
+            }
+            if (email == "director@upr.edu" && password.length > 0) {
+                window.location.assign("index.html");
+            }
+            else{
+                alert("Invalid Login Credentials");
+            }
+        }
+    </script>
 
     <!-- jQuery -->
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
