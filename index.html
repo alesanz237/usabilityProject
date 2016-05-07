@@ -1,4 +1,4 @@
-9<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -66,25 +66,39 @@
             </div>
         </div>
     </div>
+    <script src="js/taffy-min.js"></script>
     <script>
 
-    var db = openDatabase('project', '1.0', 'my first database', 2 * 1024 * 1024);
+    // var db = openDatabase('project', '1.0', 'my first database', 2 * 1024 * 1024);
+    // db.transaction(function (tx) {
+    //     tx.executeSql('CREATE TABLE foo (id unique, text)');
+    // });
+    // Create DB and fill it with records
+    // var friends = TAFFY([
+    //     {"id":1,"gender":"M","first":"John","last":"Smith","city":"Seattle, WA","status":"Active"},
+    //     {"id":2,"gender":"F","first":"Kelly","last":"Ruth","city":"Dallas, TX","status":"Active"},
+    //     {"id":3,"gender":"M","first":"Jeff","last":"Stevenson","city":"Washington, D.C.","status":"Active"},
+    //     {"id":4,"gender":"F","first":"Jennifer","last":"Gill","city":"Seattle, WA","status":"Active"}   
+    // ]);
+    var student   = db.users({id:0}).first();
+    var professor = db.users({id:1}).first();
+    var assistant = db.users({id:2}).first();
+    var director  = db.users({id:3}).first();
+    // console.log(student)
 
         function goToPage(){
             var email = $('#email').val();
             var password = $('#password').val();
-            console.log(email)
-            console.log(password)
-            if (email == "student@upr.edu" && password.length > 0) {
+            if (email == student.email && student.password == password) {
                 window.location.assign("student_pages/index.html");
             }
-            else if (email == "professor@upr.edu" && password.length > 0) {
+            else if (email == professor.email && professor.password == password) {
                 window.location.assign("professor_pages/index.html");
             }
-            else if (email == "assistant@upr.edu" && password.length > 0) {
+            else if (email == assistant.email && assistant.password == password) {
                 window.location.assign("assistant_pages/index.html");
             }
-            else if (email == "director@upr.edu" && password.length > 0) {
+            else if (email == director.email && director.password == password) {
                 window.location.assign("director_pages/index.html");
             }
             else{
