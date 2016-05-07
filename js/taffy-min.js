@@ -6,5 +6,9 @@ var db = {
         {"id":1,"email":"nestor.rodriguez@upr.edu","first":"Nestor","last":"Rodriguez","type":1,"password":"professor"},
         {"id":2,"email":"alida.minguela@upr.edu","first":"Alida","last":"Minguela","type":2,"password":"assistant"},
         {"id":3,"email":"jose.colom@upr.edu","first":"Jose","last":"Colom","type":3,"password":"director"}   
+    ]),
+    student_documents: TAFFY([
+    	{"id":0,"name":"TA Assistantship","type":"Assistantship","date":"28/Apr/2016, 03:05:03 PM","status":"Waiting for endorsement","progress":60},
+        {"id":1,"name":"Tapia Conference","type":"Travel Request","date":"28/Apr/2016, 03:05:03 PM","status":"Completed","progress":100} 
     ])
 }
