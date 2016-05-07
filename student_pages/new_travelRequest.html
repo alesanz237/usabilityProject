@@ -17,6 +17,9 @@
     <!-- MetisMenu CSS -->
     <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
+    <!-- Social Buttons CSS -->
+    <link href="../bower_components/bootstrap-social/bootstrap-social.css" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
 
@@ -292,10 +295,10 @@
                             <a href="#"><i class="fa fa-plus fa-fw"></i> New Document<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="panels-wells.html">Assistantship Request</a>
+                                    <a href="new_assistantship.html">Assistantship Request</a>
                                 </li>
                                 <li>
-                                    <a href="buttons.html">Travel Request</a>
+                                    <a href="new_travelRequest.html">Travel Request</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -309,39 +312,39 @@
             </div>
         </nav>
 
+        <!-- Page Content -->
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">New Assistanship</h1>
+                    <h1 class="page-header">New Travel Request</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-           
+            <!-- /.row -->
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-4">
                     <div class="panel panel-green">
                         <div class="panel-heading">
-                            Create New Assistanship Required
+                            Create New Travel Request
                         </div>
                         <div class="panel-body">
                             <p>Student Name: Jessica Cotrina Revilla</p>
                             <p>Student Number: 502-15-6168</p>
                             <p>Department: Electrical Engineering</p>
-                            <p>Total Payment: 4000.00</p>
-                            <p>Tasks: Teaching Assistant forCapstone Course</p>
+                            <p>Tasks: Teaching Assistant for Capstone Course</p>
                             <br>
                             <form>
                                        
-                                <input type="text" pattern="[A-Za-z]"  class="form-control" placeholder="Faculty" id="faculty"   value="" required>
+                                <input type="text" pattern="[A-Za-z]"  class="form-control" placeholder="Travel Location" id="travelLocation"   value="" required>
                                         <br>
-                                <input type="text" pattern="[A-Za-z]" class="form-control" placeholder="Major" id="major"   value="" required>
+                                <input type="text" pattern="[A-Za-z]" class="form-control" placeholder="Departure Date" id="departureDate"   value="" required>
                                         <br>
-                                <input type="text" pattern="[A-Za-z]" class="form-control" placeholder="Advisor" id="advisor"   value="" required>
+                                <input type="text" pattern="[A-Za-z]" class="form-control" placeholder="Return date" id="returnDate"   value="" required>
                                         <br>
-                                <input type="text" pattern="[A-Za-z]" class="form-control" placeholder="Project" id="project"  value="" required>
+                                <input type="text" pattern="[A-Za-z]" class="form-control" placeholder="Advisor" id="advisor"  value="" required>
                                         <br>
-                                <input type="text" pattern="[A-Za-z]" class="form-control" placeholder="Task" id="task"   value="" required>
+                                <input type="text" pattern="[A-Za-z]" class="form-control" placeholder="Porpose" id="porpose"   value="" required>
                             </br>
                                         <input type="submit" value="Create" class="btn btn-lg btn-success btn-block" style="color:white;">
                                         <br>
@@ -362,16 +365,12 @@
                 
             </div>
             <!-- /.row -->
-            
-          
+            <!-- /.row -->
         </div>
         <!-- /#page-wrapper -->
 
     </div>
     <!-- /#wrapper -->
-    <!--Validacion Inicio-->
-
-    <!--Validacion Fin-->
 
     <!-- jQuery -->
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
