@@ -67,6 +67,9 @@
         </div>
     </div>
     <script>
+
+    var db = openDatabase('project', '1.0', 'my first database', 2 * 1024 * 1024);
+
         function goToPage(){
             var email = $('#email').val();
             var password = $('#password').val();
