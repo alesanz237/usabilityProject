@@ -170,7 +170,6 @@
                            <!-- <button onclick="insert()">JHello</button> -->
                      
                         </div>
-<<<<<<< HEAD
                         <script src="../js/db.js"></script>
                         <script>
                             var documents = db.documents;
@@ -191,20 +190,17 @@
                                     var name = "Research Assistantship";
                                 }
                                 
-                                var new_assistantship = {"id":2,"name":name,"type":"Assistantship","date":"28/Apr/2016, 03:05:03 PM","status":"Application Started","progress":0,"faculty":"Elctrical Engineering","major":"Computer Engineering","advisor":advisor,"project":project,"task":task};
+                                // var new_assistantship = {"id":2,"name":name,"type":"Assistantship","date":"28/Apr/2016, 03:05:03 PM","status":"Application Started","progress":0,"faculty":"Elctrical Engineering","major":"Computer Engineering","advisor":advisor,"project":project,"task":task};
                                 
-                                console.log(documents);
-                                db.insertDocument();
-                                // db.documents.push(new_assistantship);
-                                document.write(new_assistantship)
-                                alert(db.documents)
-                                window.location.assign("index.html");
+                                // console.log(documents);
+                                // db.insertDocument();
+                                // // db.documents.push(new_assistantship);
+                                // document.write(new_assistantship)
+                                // alert(db.documents)
+                                window.location.assign("index.html?n="+name+"&t="+type+"&d=today&s=Started");
                             }
                             
                         </script>
-=======
-                        
->>>>>>> 0d2128389ecc1300195f119aa89ec5425c551226
                     </div>
                     <!-- /.col-lg-4 -->
                 
