@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -165,49 +166,98 @@
                                         <br>
                                 <input type="text" pattern="[A-Za-z]" class="form-control" placeholder="Purpose" id="purpose"   value="" required>
                             </br>
-                                        
                                 <input  value="Create" onclick="insert()" class="btn btn-lg btn-success btn-block" style="color:white;">
                                         <br>
+                            
                           
                             </form>
+                           
                      
                         </div>
-                        <!--Creation of script-->
-
-                       <script src="../js/db.js"></script>
-                        <script>
 
                         <script src="../js/db.js"></script>
                         <script>
                         console.log('valor de db:');
                         console.log(db);
                         console.log('entro');
-
                             var documents = db.documents;
                             function insert(){
                                 // alert("Assistantship Request Sent!")
                                 // console.log(documents({"id":2}).count());
                                 // .insert({"id":2,"name":"TA Assistantship","type":"Assistantship","date":"28/Apr/2016, 03:05:03 PM","status":"Waiting for endorsement","progress":60,"faculty":"Electrical Engineering","major":"Computer Engineering","advisor":"Wilson","project":"RISC","task":"code"})
+                                var name           = $('#name').val();
                                 var travelLocation = $('#travelLocation').val();
-                                var departureDate = $('#departureDate').val();
-                                var returnDate    = $('#returnDate').val();
-                                var advisor    = $('#advisor').val();
-                                var porpose    = $('#porpose').val()
-                       
-                                window.location.assign("index.html?n="+travelLocation+"&t="+departureDate+"&d=today&s=Started");
-
-
-                             
+                                var departureDate  = $('#departureDate').val();
+                                var returnDate     = $('#returnDate').val();
+                                var advisor        = $('#advisor').val();
+                                var purpose        = $('#purpose').val();
+                                
+                                if (name.length == 0){
+                                    $('#name').css('border', '1px solid red');
+                                    var flag1 = false;
+                                }
+                                else{
+                                    $('#name').css('border', '1px solid #ccc');
+                                    var flag1 = true;
+                                }
+                                if (travelLocation.length == 0){
+                                    $('#travelLocation').css('border', '1px solid red');
+                                    var flag2 = false;
+                                }
+                                else{
+                                    $('#travelLocation').css('border', '1px solid #ccc');
+                                    var flag2 = true;
+                                }
+                                if (departureDate.length == 0){
+                                    $('#departureDate').css('border', '1px solid red');
+                                    var flag3 = false;
+                                }
+                                else{
+                                    $('#departureDate').css('border', '1px solid #ccc');
+                                    var flag3 = true;
+                                }
+                                if (returnDate.length == 0){
+                                    $('#returnDate').css('border', '1px solid red');
+                                    var flag4 = false;
+                                }
+                                else{
+                                    $('#returnDate').css('border', '1px solid #ccc');
+                                    var flag4 = true;
+                                }
+                                if (advisor.length == 0){
+                                    $('#advisor').css('border', '1px solid red');
+                                    var flag5 = false;
+                                }
+                                else{
+                                    $('#advisor').css('border', '1px solid #ccc');
+                                    var flag5 = true;
+                                }
+                                if (purpose.length == 0){
+                                    $('#purpose').css('border', '1px solid red');
+                                    var flag6 = false;
+                                }
+                                else{
+                                    $('#purpose').css('border', '1px solid #ccc');
+                                    var flag6 = true;
+                                }
+                                if (flag1 == true && flag2 == true && flag3 == true && flag4 == true && flag5 == true && flag6 == true){
+                                    console.log(flag1);
+                                    console.log(flag2);
+                                    console.log(flag3);
+                                    window.location.assign("index.html?n="+name+"&t=Travel&d=Today&s=Started");
+                                }
+                                else{
+                                    console.log(flag1);
+                                    console.log(flag2);
+                                    console.log(flag3);
+                                }
+                                
                             }
-
                             
                         </script>
-
-                                
                         <div class="panel-footer">
                         
                       <!--  <a class="btn btn-lg btn-success btn-block" onclick="goToPage()" style="color:white;" id="btncreate" >Create</a>-->
-
 
                         </div>
                     </div>
