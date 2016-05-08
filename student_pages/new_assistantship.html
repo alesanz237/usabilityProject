@@ -322,14 +322,14 @@
                 <div class="col-lg-4">
                     <div class="panel panel-green">
                         <div class="panel-heading">
-                            Create New Assistanship Required
+                            Please fill the fields below
                         </div>
                         <div class="panel-body">
                             <p>Student Name: Jessica Cotrina Revilla</p>
                             <p>Student Number: 502-15-6168</p>
                             <p>Department: Electrical Engineering</p>
-                            <p>Total Payment: 4000.00</p>
-                            <p>Tasks: Teaching Assistant for Capstone Course</p>
+                            <!-- <p>Total Payment: 4000.00</p> -->
+                            <!-- <p>Tasks: Teaching Assistant for Capstone Course</p> -->
                             <br>
                             <form>
                                        
@@ -351,11 +351,13 @@
                            
                      
                         </div>
-                        <div class="panel-footer">
-                        
-                      <!--  <a class="btn btn-lg btn-success btn-block" onclick="goToPage()" style="color:white;" id="btncreate" >Create</a>-->
-
-                        </div>
+                        <script>
+                            var faculty = $('#faculty').val();
+                            var major   = $('#major').val();
+                            var advisor = $('#advisor').val();
+                            var project = $('#project').val();
+                            var task    = $('#task').val();
+                        </script>
                     </div>
                     <!-- /.col-lg-4 -->
                 
