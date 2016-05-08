@@ -10,5 +10,16 @@ var db = {
     student_documents: TAFFY([
     	{"id":0,"name":"TA Assistantship","type":"Assistantship","date":"28/Apr/2016, 03:05:03 PM","status":"Waiting for endorsement","progress":60},
         {"id":1,"name":"Tapia Conference","type":"Travel Request","date":"28/Apr/2016, 03:05:03 PM","status":"Completed","progress":100} 
+    ]),
+    assistantship_information: TAFFY([
+    	{"id":0,"name":"TA Assistantship","status":"Application Created","date":"17/Jan/2016, 03:05:03 PM","user":"Sandra Montalvo Solorzano","location":"Ingenieria Electrica"},
+        {"id":0,"name":"TA Assistantship","status":"Application In Transit","date":"17/Jan/2016, 03:15:12 PM","user":"Sandra Montalvo Solorzano","location":"Ingenieria Electrica"},
+        {"id":0,"name":"TA Assistantship","status":"Application Completed","date":"18/Jan/2016, 09:05:45 AM","user":"Sandra Montalvo Solorzano","location":"Ingenieria Electrica"}
+    ]),
+    travel_information: TAFFY([
+    	{"id":0,"name":"Tapia Conference","status":"Application Created","date":"15/Nov/2015, 09:05:03 PM","user":"Sandra Montalvo Solorzano","location":"Ingenieria Electrica"},
+        {"id":0,"name":"Tapia Conference","status":"Application In Transit","date":"15/Nov/2015, 10:15:12 PM","user":"Sandra Montalvo Solorzano","location":"Ingenieria Electrica"},
+        {"id":0,"name":"Tapia Conference","status":"Application Completed","date":"20/Nov/2016, 04:05:45 PM","user":"Sandra Montalvo Solorzano","location":"Ingenieria Electrica"},
+        {"id":0,"name":"Tapia Conference","status":"Department Endorsement","date":"01/Dec/2016, 11:35:53 AM","user":"Jose Colom","location":"Ingenieria Electrica"}
     ])
 }

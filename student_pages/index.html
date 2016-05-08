@@ -455,10 +455,10 @@
                                             var cell = row.insertCell(j)
                                             if (j == 0){
                                                 if (doc.type == "Assistantship"){
-                                                    cell.innerHTML ="<a href=\"assistantship_info.html\">" +  doc.name + "</a>";
+                                                    cell.innerHTML ="<a href=\"assistantship_info.html?=" + doc.id + "\">" +  doc.name + "</a>";
                                                 }
                                                 else{
-                                                    cell.innerHTML ="<a href=\"travel_info.html\">" + doc.name + "</a>";
+                                                    cell.innerHTML ="<a href=\"travel_info.html?=" + doc.id + "\">" +  doc.name + "</a>";
                                                 }
                                                 
                                             }

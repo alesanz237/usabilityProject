@@ -428,7 +428,6 @@
                                     
                                     
                                     var count  = db.student_documents({"type":"Assistantship"}).count();
-                                    console.log(count);
                                     var table = document.getElementById("document_table");
                                     var header = table.createTHead();
                                     var row = header.insertRow(0);
@@ -451,11 +450,11 @@
                                     for (i = 1; i <= count; i++){
                                         var row = table.insertRow(i)
                                         var doc = db.student_documents({id:i-1}).first()
-                                        console.log(doc)
+                                        console.log(doc.id)
                                         for (j = 0; j < 4; j++){
                                             var cell = row.insertCell(j)
                                             if (j == 0){
-                                                cell.innerHTML ="<a href=\"assistantship_info.html\">" +  doc.name + "</a>";
+                                                cell.innerHTML ="<a href=\"assistantship_info.html?=" + doc.id + "\">" +  doc.name + "</a>";
                                                 
                                             }
                                             else if (j == 1){
