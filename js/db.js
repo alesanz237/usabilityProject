@@ -1,3 +1,5 @@
+console.log('entra a db.js');
+
 var db = {
 	users: [
 		{"id":0,"email":"jessica.cotrina@upr.edu","first":"Jessica","last":"Cotrina","type":0,"password":"student"},
