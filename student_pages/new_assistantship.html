@@ -162,7 +162,7 @@
                                   <option value="ta">TA</option>
                                 </select>
                                 </br>
-                                <input type="submit" value="Create" onclick="insert()" class="btn btn-lg btn-success btn-block" style="color:white;">
+                                <input  value="Create" onclick="insert()" class="btn btn-lg btn-success btn-block" style="color:white;">
                                 <br>
                             
                           
@@ -181,7 +181,7 @@
                                 var project = $('#project').val();
                                 var task    = $('#task').val();
                                 var type    = $('#type option:selected').text();
-                                if (type == "ta"){
+                                if (type == "TA"){
                                     var name = "TA Assistantship";
                                 }
                                 else{
@@ -190,6 +190,42 @@
                                 // document.write(new_assistantship)
                                 // alert(db.documents)
                                 window.location.assign("index.html?n="+name+"&t="+type+"&d=today&s=Started");
+                                if (advisor.length == 0){
+                                    $('#advisor').css('border', '1px solid red');
+                                    var flag1 = false;
+                                }
+                                else{
+                                    $('#advisor').css('border', '1px solid #ccc');
+                                    var flag1 = true;
+                                }
+                                if (project.length == 0){
+                                    $('#project').css('border', '1px solid red');
+                                    var flag2 = false;
+                                }
+                                else{
+                                    $('#project').css('border', '1px solid #ccc');
+                                    var flag2 = true;
+                                }
+                                if (task.length == 0){
+                                    $('#task').css('border', '1px solid red');
+                                    var flag3 = false;
+                                }
+                                else{
+                                    $('#task').css('border', '1px solid #ccc');
+                                    var flag3 = true;
+                                }
+                                if (flag1 == true && flag2 == true && flag3 == true){
+                                    console.log(flag1);
+                                    console.log(flag2);
+                                    console.log(flag3);
+                                    window.location.assign("index.html?n="+name+"&t="+type+"&d=Today&s=Started");
+                                }
+                                else{
+                                    console.log(flag1);
+                                    console.log(flag2);
+                                    console.log(flag3);
+                                }
+                                
                             }
                             
                         </script>

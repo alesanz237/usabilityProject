@@ -22,7 +22,8 @@ var db = {
     	{"id":1,"name":"Tapia Conference","status":"Application Created","date":"15/Nov/2015, 09:05:03 PM","user":"Sandra Montalvo Solorzano","location":"Ingenieria Electrica"},
         {"id":1,"name":"Tapia Conference","status":"Application In Transit","date":"15/Nov/2015, 10:15:12 PM","user":"Sandra Montalvo Solorzano","location":"Ingenieria Electrica"},
         {"id":1,"name":"Tapia Conference","status":"Application Completed","date":"20/Nov/2016, 04:05:45 PM","user":"Sandra Montalvo Solorzano","location":"Ingenieria Electrica"},
-        {"id":1,"name":"Tapia Conference","status":"Department Endorsement","date":"01/Dec/2016, 11:35:53 AM","user":"Jose Colom","location":"Ingenieria Electrica"}
+        {"id":1,"name":"Tapia Conference","status":"Department Endorsement","date":"01/Dec/2016, 11:35:53 AM","user":"Jose Colom","location":"Ingenieria Electrica"},
+        {"id":2,"name":"Grace Hoper Conference","status":"Travel Requested","date":"Today","user":"Jessica Cotrina Revilla","location":"Ingenieria Electrica"},
     ],
     insertDocument:function(){
     	documents.push({"id":2,"name":"name","type":"Assistantship","date":"28/Apr/2016, 03:05:03 PM","status":"Application Started","progress":0,"faculty":"Elctrical Engineering","major":"Computer Engineering","advisor":"advisor","project":"project","task":"task"})
