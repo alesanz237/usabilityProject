@@ -150,7 +150,7 @@
                             <!-- <p>Total Payment: 4000.00</p> -->
                             <!-- <p>Tasks: Teaching Assistant for Capstone Course</p> -->
                             <br>
-                            <form action="index.html">
+                            <form>
                                 <input type="text" pattern="[A-Za-z]" class="form-control" placeholder="Advisor" id="advisor"   value="" required>
                                         <br>
                                 <input type="text" pattern="[A-Za-z]" class="form-control" placeholder="Project" id="project"  value="" required>
@@ -187,12 +187,6 @@
                                 else{
                                     var name = "Research Assistantship";
                                 }
-                                
-                                // var new_assistantship = {"id":2,"name":name,"type":"Assistantship","date":"28/Apr/2016, 03:05:03 PM","status":"Application Started","progress":0,"faculty":"Elctrical Engineering","major":"Computer Engineering","advisor":advisor,"project":project,"task":task};
-                                
-                                // console.log(documents);
-                                // db.insertDocument();
-                                // // db.documents.push(new_assistantship);
                                 // document.write(new_assistantship)
                                 // alert(db.documents)
                                 window.location.assign("index.html?n="+name+"&t="+type+"&d=today&s=Started");
