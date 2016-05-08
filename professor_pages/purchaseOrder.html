@@ -18,7 +18,7 @@
     <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
     <!-- Timeline CSS -->
-    <link href="../css/timeline.css" rel="stylesheet">
+    <link href="../dist/css/timeline.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
@@ -57,12 +57,16 @@
 
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
-                    
                    
-                    <!-- /.dropdown-tasks -->
+                   
+                    <!-- /.dropdown-messages -->
                 </li>
                 <!-- /.dropdown -->
                 
+                    <!-- /.dropdown-tasks -->
+                </li>
+                <!-- /.dropdown -->
+               
                     <!-- /.dropdown-alerts -->
                 </li>
                 <!-- /.dropdown -->
@@ -81,10 +85,10 @@
             </ul>
             <!-- /.navbar-top-links -->
 
-           <div class="navbar-default sidebar" role="navigation">
+            <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
+                        <!-- <li class="sidebar-search">
                             <div class="input-group custom-search-form">
                                 <input type="text" class="form-control" placeholder="Search...">
                                 <span class="input-group-btn">
@@ -93,38 +97,36 @@
                                 </button>
                             </span>
                             </div>
-                            <!-- /input-group -->
-                        </li>
+                            /input-group
+                        </li> -->
                         <!-- <li>
                             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i>My Documents</a>
                         </li> -->
                         <li>
-                            <a href="#"><i class="fa fa-folder fa-fw"></i> My Documents<span class="fa arrow"></span></a>
+                            <a href="index.html"><i class="fa fa-folder fa-fw"></i> My Documents</span></a>
                             <ul class="nav nav-second-level">
-                              
                                 <li>
-                                    <a href="travel.html">Travel Requests</a>
+                                    <a href="purchaseOrder.html">Purchase Order</a>
                                 </li>
                                 <li>
-                                    <a href="purchaseOrder.html">Purchase Orders</a>
+                                    <a href="travel_requests.html">Travel Requests</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-plus fa-fw"></i> New Document<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-plus fa-fw"></i> New Document</span></a>
                             <ul class="nav nav-second-level">
-                              
-                                <li>
-                                    <a href="new_travel.html">Travel Request</a>
-                                </li>
                                 <li>
                                     <a href="new_purchaseOrders.html">Purchase Order</a>
+                                </li>
+                                <li>
+                                    <a href="new_travelRequest.html">Travel Request</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                       
+                  
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -134,72 +136,201 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Purchase Order</h1>
+                    <h1 class="page-header">Purchase Orders</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-            
-                <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default" >
-                        <div class="panel panel-green"> 
-                        <div class="panel-heading" >
-                            Show All Purchase Order
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="dataTable_wrapper">
-                                <table class="table table-striped table-bordered table-hover">
-                                    <!-- id="dataTables-example"-->
-                                    <thead>
-                                        <tr>
-                                            <th>Type of purchase</th>
-                                            <th>Purchase Motive</th>
-                                            <th>Product</th>
-                                            <th> Quantily </th>
-                                            <th>Return Date </th>
-                                            <th>Purpose </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Alejandro Sanchez Fernandez</td>
-                                            <td>Conference: Grace Hopper</td>
-                                            <td>New York- USA</td>
-                                            <td>02/02/2016</td>
-                                            <td>02/12/2016</td>
-                                            <td>Presentation Poster of project RISC</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jessica Cotrina Revilla</td>
-                                            <td>Conference: Latinity</td>
-                                            <td>Australia</td>
-                                            <td>04/04/2016</td>
-                                            <td>04/08/2016</td>
-                                            <td>Presentation Poster of project ACMP</td>
-                                        </tr>
-                                         <tr>
-                                            <td>María Alaya Martinez</td>
-                                            <td>Investigation</td>
-                                            <td>Canada</td>
-                                            <td>12/02/2016</td>
-                                            <td>12/12/2016</td>
-                                            <td>Investigation about project Systems </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+            <!-- <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-envelope" style="font-size:60px"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">26</div>
+                                    <div>Received Messages!</div>
                                 </div>
                             </div>
-                            <!-- /.table-responsive -->
-                           
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-share-square-o" style="font-size:60px"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">12</div>
+                                    <div>Sent Messages!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-pencil-square-o"style="font-size:60px"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">124</div>
+                                    <div>Sign Documents!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tencent-weibo"style="font-size:60px"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">13</div>
+                                    <div>Tracking Documents!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div> -->
+            <!-- /.row -->
+             <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-4" style="width:1000px">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover table-striped" id="document_table"></table>
+                                    </div>
+                                    <!-- /.table-responsive -->
+                                </div>
+                                <script src="../js/db.js"></script>
+                                <script>
+                                    
+                                    var count = 0;
+                                    var documents = db.documents;
+                                    for (i = 0; i < documents.length; i++){
+                                        if (documents[i].type == "Purchase Order"){
+                                            count+=1;
+                                        }
+                                    }
+                                    console.log(count);
+                                    var table = document.getElementById("document_table");
+                                    var header = table.createTHead();
+                                    var row = header.insertRow(0);
+                                    for (i = 0; i < 4; i ++){
+                                        var cell = row.insertCell(i);
+                                        if (i == 0){
+                                            cell.innerHTML = "<strong> Name </strong>";
+                                        }
+                                        else if (i == 1){
+                                            cell.innerHTML = "<strong> Type </strong>";
+                                        }
+                                        else if (i == 2){
+                                            cell.innerHTML = "<strong> Date <strong>";
+                                        }
+                                        else if (i == 3){
+                                            cell.innerHTML = "<strong> Status </strong>";
+                                        } 
+                                    }
+                                    // var row = hearder.insertRow
+                                    for (i = 0; i < count; i++){
+                                        var row = table.insertRow(i+1)
+                                        var doc = documents[3]
+                                        console.log(doc)
+                                        for (j = 0; j < 4; j++){
+                                            var cell = row.insertCell(j)
+                                            if (j == 0){
+                                                cell.innerHTML ="<a href=\"purchase_info.html?=" + doc.id + "\">" +  doc.name + "</a>";
+                                                
+                                            }
+                                            else if (j == 1){
+                                                cell.innerHTML = doc.type;
+                                            }
+                                            else if (j == 2){
+                                                cell.innerHTML = doc.date;
+                                            }
+                                            else if (j == 3){
+                                                cell.innerHTML = doc.status;
+                                            }   
+                                        }
+                                    }
+                                </script>
+                                <!-- /.col-lg-4 (nested) -->
+                                <div class="col-lg-8">
+                                    <div id="morris-bar-chart"></div>
+                                </div>
+                                <!-- /.col-lg-8 (nested) -->
+                            </div>
+                            <!-- /.row -->
                         </div>
                         <!-- /.panel-body -->
-
+                    </div>
+                    <!-- /.panel -->
+                    <div class="panel panel-default">
+                        
+                        <!-- /.panel-heading -->
+                        
+                        <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
                 </div>
-                <!-- /.col-lg-12 -->
+                <!-- /.col-lg-8 -->
+                
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                    
+                    <!-- /.panel -->
+                    
+                        <!-- /.panel-heading -->
+                        
+                        <!-- /.panel-body -->
+                        <div class="panel-footer">
+                          
+                        </div>
+                        <!-- /.panel-footer -->
+                    </div>
+                    <!-- /.panel .chat-panel -->
+                </div>
+                <!-- /.col-lg-4 -->
             </div>
             <!-- /.row -->
         </div>
@@ -217,14 +348,10 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-    <!-- Flot Charts JavaScript -->
-    <script src="../bower_components/flot/excanvas.min.js"></script>
-    <script src="../bower_components/flot/jquery.flot.js"></script>
-    <script src="../bower_components/flot/jquery.flot.pie.js"></script>
-    <script src="../bower_components/flot/jquery.flot.resize.js"></script>
-    <script src="../bower_components/flot/jquery.flot.time.js"></script>
-    <script src="../bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
-    <script src="../js/flot-data.js"></script>
+    <!-- Morris Charts JavaScript -->
+    <script src="../bower_components/raphael/raphael-min.js"></script>
+    <script src="../bower_components/morrisjs/morris.min.js"></script>
+    <script src="../js/morris-data.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>

@@ -18,7 +18,7 @@
     <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
     <!-- Timeline CSS -->
-    <!-- <link href="../dist/css/timeline.css" rel="stylesheet"> -->
+    <link href="../dist/css/timeline.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
@@ -38,7 +38,7 @@
 
 </head>
 
-<body >
+<body>
 
     <div id="wrapper">
 
@@ -57,16 +57,16 @@
 
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
-                    
+                   
                    
                     <!-- /.dropdown-messages -->
                 </li>
                 <!-- /.dropdown -->
-               
+                
                     <!-- /.dropdown-tasks -->
                 </li>
                 <!-- /.dropdown -->
-                
+               
                     <!-- /.dropdown-alerts -->
                 </li>
                 <!-- /.dropdown -->
@@ -97,17 +97,14 @@
                                 </button>
                             </span>
                             </div>
-                          
+                            /input-group
                         </li> -->
                         <!-- <li>
                             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i>My Documents</a>
                         </li> -->
                         <li>
-                            <a href="index.html"><i class="fa fa-folder fa-fw"></i> My Documents</a>
+                            <a href="index.html"><i class="fa fa-folder fa-fw"></i> My Documents</span></a>
                             <ul class="nav nav-second-level">
-                                <!-- <li>
-                                    <a href="assistantships.html">Assistantships</a>
-                                </li> -->
                                 <li>
                                     <a href="purchaseOrder.html">Purchase Order</a>
                                 </li>
@@ -118,11 +115,8 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href=""><i class="fa fa-plus fa-fw"></i> New Document</a>
+                            <a href="#"><i class="fa fa-plus fa-fw"></i> New Document</span></a>
                             <ul class="nav nav-second-level">
-                                <!-- <li>
-                                    <a href="new_assistantship.html">Assistantship Request</a>
-                                </li> -->
                                 <li>
                                     <a href="new_purchaseOrders.html">Purchase Order</a>
                                 </li>
@@ -132,7 +126,7 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        
+                  
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -142,7 +136,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">My Documents</h1>
+                    <h1 class="page-header">Travel Requests</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -250,21 +244,15 @@
                                 <script src="../js/db.js"></script>
                                 <script>
                                     
-                                    var query_string = {};
-                                    var query = window.location.search.substring(1);
-                                    var vars = query.split("=");
-                                    if (vars.length > 1){
-                                        var name = vars[1].replace("%20"," ").replace("&t","");
-                                        var type = vars[2].replace("&d","");
-                                        var date = vars[3].replace("&s","");
-                                        var status = vars[4];
+                                    var count = 0;
+                                    var documents = db.documents;
+                                    console.log(documents)
+                                    for (i = 0; i < documents.length; i++){
+                                        if (documents[i].type == "Travel Request"){
+                                            count+=1;
+                                        }
                                     }
-                                    
-                                    var document_info = []
-                                    var assistantships = db.assistantship_information;
-                                    console.log(assistantships);
-                                    // console.log(vars)
-                                    // var count  = db.documents.length;
+                                    console.log(count);
                                     var table = document.getElementById("document_table");
                                     var header = table.createTHead();
                                     var row = header.insertRow(0);
@@ -284,21 +272,15 @@
                                         } 
                                     }
                                     // var row = hearder.insertRow
-                                    for (i = 2; i < 4; i++){
-                                        var row = table.insertRow(i-1)
-                                        var doc = db.documents[i]
-                                        console.log(doc)
+                                    // for (i = 2; i < count; i++){
+                                    //     var row = table.insertRow(i-1)
+                                    var doc = documents[2]
+                                    //     console.log(doc)
+                                    var row = table.insertRow(1)
                                         for (j = 0; j < 4; j++){
                                             var cell = row.insertCell(j)
-                                            console.log(doc.type)
                                             if (j == 0){
-                                                if (doc.type == "Travel Request"){
-                                                    cell.innerHTML ="<a href=\"travel_info.html?=" + doc.id + "\">" +  doc.name + "</a>";
-                                                    
-                                                }
-                                                else{
-                                                    cell.innerHTML ="<a href=\"purchase_info.html?=" + doc.id + "\">" +  doc.name + "</a>";
-                                                }
+                                                cell.innerHTML ="<a href=\"travel_info.html?=" + doc.id + "\">" +  doc.name + "</a>";
                                                 
                                             }
                                             else if (j == 1){
@@ -311,35 +293,7 @@
                                                 cell.innerHTML = doc.status;
                                             }   
                                         }
-                                    }
-                                    if (name.length > 0 && type.length > 0 && date.length > 0 && status.length > 0){
-                                        var row = table.insertRow(i);
-                                        for (j = 0; j < 4; j++){
-                                            var cell = row.insertCell(j)
-                                            if (j == 0){
-                                                if (type == "TA"){
-                                                    cell.innerHTML ="<a href=\"assistantship_info.html?=2\">" +  name + "</a>";
-                                                }
-                                                else if (type == "Research"){
-                                                    cell.innerHTML ="<a href=\"assistantship_info.html?=3\">" +  name + "</a>";
-                                                }
-                                                else if (type == "Travel"){
-                                                    cell.innerHTML ="<a href=\"travel_info.html?=2\">" +  name + "</a>";
-                                                }
-
-                                            }
-                                            else if (j == 1){
-                                                cell.innerHTML = type;
-                                            }
-                                            else if (j == 2){
-                                                cell.innerHTML = date;
-                                            }
-                                            else if (j == 3){
-                                                cell.innerHTML = status;
-                                            } 
-                                        }
-                                    }
-                                    
+                                    // }
                                 </script>
                                 <!-- /.col-lg-4 (nested) -->
                                 <div class="col-lg-8">
@@ -403,8 +357,6 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-
-
 
 </body>
 
