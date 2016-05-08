@@ -344,7 +344,7 @@
                                     </div>
                                     <!-- /.table-responsive -->
                                 </div>
-                                <script src="../js/taffy-min.js"></script>
+                                <script src="../js/db.js"></script>
                                         <script>
                                             
                                             var query_string = {};
@@ -352,9 +352,14 @@
                                             var vars = query.split("=");
                                             doc_id = vars[1];
                                             var document_info = []
-                                            var assistantship  = db.travel_information({"id":0}).each(function (r){
-                                                document_info.push(r)
-                                            })
+                                            var travels = db.travel_information;
+                                            console.log(travels.length);
+                                            for (i = 0; i < travels.length; i++){
+                                                console.log(travels[i].id)
+                                                if (travels[i].id == doc_id){
+                                                    document_info.push(travels[i]);
+                                                }
+                                            }
                                             var header = document.getElementById("header").innerHTML = document_info[0].name;
                                             console.log(document_info)
                                             // console.log(assistantship);

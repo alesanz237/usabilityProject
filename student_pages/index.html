@@ -423,11 +423,11 @@
                                     </div>
                                     <!-- /.table-responsive -->
                                 </div>
-                                <script src="../js/taffy-min.js"></script>
+                                <script src="../js/db.js"></script>
                                 <script>
                                     
                                     
-                                    var count  = db.student_documents().count();
+                                    var count  = db.documents.length;
                                     var table = document.getElementById("document_table");
                                     var header = table.createTHead();
                                     var row = header.insertRow(0);
@@ -449,7 +449,7 @@
                                     // var row = hearder.insertRow
                                     for (i = 1; i <= count; i++){
                                         var row = table.insertRow(i)
-                                        var doc = db.student_documents({id:i-1}).first()
+                                        var doc = db.documents[i-1]
                                         console.log(doc)
                                         for (j = 0; j < 4; j++){
                                             var cell = row.insertCell(j)

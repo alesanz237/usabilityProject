@@ -423,11 +423,16 @@
                                     </div>
                                     <!-- /.table-responsive -->
                                 </div>
-                                <script src="../js/taffy-min.js"></script>
+                                <script src="../js/db.js"></script>
                                 <script>
                                     
-                                    
-                                    var count  = db.student_documents({"type":"Travel Request"}).count();
+                                    var count = 0;
+                                    var documents = db.documents;
+                                    for (i = 0; i < documents.length; i++){
+                                        if (documents[i].type == "Travel Request"){
+                                            count+=1;
+                                        }
+                                    }
                                     console.log(count);
                                     var table = document.getElementById("document_table");
                                     var header = table.createTHead();
@@ -450,7 +455,7 @@
                                     // var row = hearder.insertRow
                                     for (i = 0; i < count; i++){
                                         var row = table.insertRow(i+1)
-                                        var doc = db.student_documents({id:i+1}).first()
+                                        var doc = documents[i+1]
                                         console.log(doc)
                                         for (j = 0; j < 4; j++){
                                             var cell = row.insertCell(j)

@@ -341,17 +341,23 @@
                                 <div class="col-lg-4" style="width:1000px">
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-hover table-striped" id="document_table"></table>
-                                        <script src="../js/taffy-min.js"></script>
+                                        <script src="../js/db.js"></script>
                                         <script>
                                             
                                             var query_string = {};
                                             var query = window.location.search.substring(1);
                                             var vars = query.split("=");
                                             doc_id = vars[1];
+                                            console.log(doc_id)
                                             var document_info = []
-                                            var assistantship  = db.assistantship_information({"id":parseInt(doc_id)}).each(function (r){
-                                                document_info.push(r)
-                                            })
+                                            var assistantships = db.assistantship_information;
+                                            console.log(assistantships);
+                                            for (i = 0; i < assistantships.length; i++){
+                                                console.log(assistantships[i])
+                                                if (assistantships[i].id == doc_id){
+                                                    document_info.push(assistantships[i]);
+                                                }
+                                            }
                                             var header = document.getElementById("header").innerHTML = document_info[0].name;
                                             console.log(document_info)
                                             // console.log(assistantship);

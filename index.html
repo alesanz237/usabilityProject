@@ -66,7 +66,7 @@
             </div>
         </div>
     </div>
-    <script src="js/taffy-min.js"></script>
+    <script src="js/db.js"></script>
     <script>
 
     // var db = openDatabase('project', '1.0', 'my first database', 2 * 1024 * 1024);
@@ -80,12 +80,13 @@
     //     {"id":3,"gender":"M","first":"Jeff","last":"Stevenson","city":"Washington, D.C.","status":"Active"},
     //     {"id":4,"gender":"F","first":"Jennifer","last":"Gill","city":"Seattle, WA","status":"Active"}   
     // ]);
-    var student   = db.users({id:0}).first();
-    var professor = db.users({id:1}).first();
-    var assistant = db.users({id:2}).first();
-    var director  = db.users({id:3}).first();
+    var student   = db.users[0];
+    var professor = db.users[1];
+    var assistant = db.users[2];
+    var director  = db.users[3];
     // console.log(student)
-
+    
+    
         function goToPage(){
             var email = $('#email').val();
             var password = $('#password').val();
