@@ -312,12 +312,13 @@
                                                 if (type == "TA"){
                                                     cell.innerHTML ="<a href=\"assistantship_info.html?=2\">" +  name + "</a>";
                                                 }
-                                                else if (type == "research"){
+                                                else if (type == "Research"){
                                                     cell.innerHTML ="<a href=\"assistantship_info.html?=3\">" +  name + "</a>";
                                                 }
-                                                else{
-                                                   cell.innerHTML ="<a href=\"travel_info.html?=2\">" +  name + "</a>"; 
+                                                else if (type == "Travel"){
+                                                    cell.innerHTML ="<a href=\"travel_info.html?=2\">" +  name + "</a>";
                                                 }
+
                                             }
                                             else if (j == 1){
                                                 cell.innerHTML = type;
