@@ -150,7 +150,7 @@
                             <!-- <p>Total Payment: 4000.00</p> -->
                             <!-- <p>Tasks: Teaching Assistant for Capstone Course</p> -->
                             <br>
-                            <form action="index.html">
+                            <form>
                                 <input type="text" pattern="[A-Za-z]" class="form-control" placeholder="Advisor" id="advisor"   value="" required>
                                         <br>
                                 <input type="text" pattern="[A-Za-z]" class="form-control" placeholder="Project" id="project"  value="" required>
@@ -177,19 +177,16 @@
                                 // alert("Assistantship Request Sent!")
                                 // console.log(documents({"id":2}).count());
                                 // .insert({"id":2,"name":"TA Assistantship","type":"Assistantship","date":"28/Apr/2016, 03:05:03 PM","status":"Waiting for endorsement","progress":60,"faculty":"Electrical Engineering","major":"Computer Engineering","advisor":"Wilson","project":"RISC","task":"code"})
-                                var faculty = $('#faculty').val();
-                                var major   = $('#major').val();
                                 var advisor = $('#advisor').val();
                                 var project = $('#project').val();
                                 var task    = $('#task').val();
                                 var type    = $('#type option:selected').text();
-                                if (type == "TA"){
+                                if (type == "ta"){
                                     var name = "TA Assistantship";
                                 }
                                 else{
                                     var name = "Research Assistantship";
                                 }
-                                
                                 // var new_assistantship = {"id":2,"name":name,"type":"Assistantship","date":"28/Apr/2016, 03:05:03 PM","status":"Application Started","progress":0,"faculty":"Elctrical Engineering","major":"Computer Engineering","advisor":advisor,"project":project,"task":task};
                                 
                                 // console.log(documents);

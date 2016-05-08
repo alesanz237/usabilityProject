@@ -247,10 +247,13 @@
                                     var query_string = {};
                                     var query = window.location.search.substring(1);
                                     var vars = query.split("=");
-                                    var name = vars[1].replace("%20"," ").replace("&t","");
-                                    var type = vars[2].replace("&d","");
-                                    var date = vars[3].replace("&s","");
-                                    var status = vars[4];
+                                    if (vars.length > 1){
+                                        var name = vars[1].replace("%20"," ").replace("&t","");
+                                        var type = vars[2].replace("&d","");
+                                        var date = vars[3].replace("&s","");
+                                        var status = vars[4];
+                                    }
+                                    
                                     var document_info = []
                                     var assistantships = db.assistantship_information;
                                     console.log(assistantships);
@@ -306,7 +309,15 @@
                                         for (j = 0; j < 4; j++){
                                             var cell = row.insertCell(j)
                                             if (j == 0){
-                                                cell.innerHTML = name;
+                                                if (type == "TA"){
+                                                    cell.innerHTML ="<a href=\"assistantship_info.html?=2\">" +  name + "</a>";
+                                                }
+                                                else if (type == "research"){
+                                                    cell.innerHTML ="<a href=\"assistantship_info.html?=3\">" +  name + "</a>";
+                                                }
+                                                else{
+                                                   cell.innerHTML ="<a href=\"travel_info.html?=2\">" +  name + "</a>"; 
+                                                }
                                             }
                                             else if (j == 1){
                                                 cell.innerHTML = type;

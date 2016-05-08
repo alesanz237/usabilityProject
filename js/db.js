@@ -12,7 +12,9 @@ var db = {
 	assistantship_information: [
     	{"id":0,"name":"TA Assistantship","status":"Application Created","date":"17/Jan/2016, 03:05:03 PM","user":"Sandra Montalvo Solorzano","location":"Ingenieria Electrica"},
         {"id":0,"name":"TA Assistantship","status":"Application In Transit","date":"17/Jan/2016, 03:15:12 PM","user":"Sandra Montalvo Solorzano","location":"Ingenieria Electrica"},
-        {"id":0,"name":"TA Assistantship","status":"Application Completed","date":"18/Jan/2016, 09:05:45 AM","user":"Sandra Montalvo Solorzano","location":"Ingenieria Electrica"}
+        {"id":0,"name":"TA Assistantship","status":"Application Completed","date":"18/Jan/2016, 09:05:45 AM","user":"Sandra Montalvo Solorzano","location":"Ingenieria Electrica"},
+        {"id":2,"name":"TA Assistantship","status":"Application Solicited","date":"today","user":"Jessica Cotrina Revilla","location":"Ingenieria Electrica"},
+        {"id":3,"name":"Research Assistantship","status":"Application Solicited","date":"today","user":"Jessica Cotrina Revilla","location":"Ingenieria Electrica"}
     ],
     travel_information: [
     	{"id":1,"name":"Tapia Conference","status":"Application Created","date":"15/Nov/2015, 09:05:03 PM","user":"Sandra Montalvo Solorzano","location":"Ingenieria Electrica"},
