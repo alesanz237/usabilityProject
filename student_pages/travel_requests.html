@@ -303,23 +303,26 @@
                                             }   
                                         }
                                     }
-                                    var row = header.insertRow(i);
-                                    for (j = 0; j < 4; j++){
-                                        var cell = row.insertCell(j)
-                                        if (j == 0){
-                                            cell.innerHTML ="<a href=\"travel_info.html?=2\">" +  doc.name + "</a>";
-                                            
+                                    if (vars.length > 1){
+                                        var row = header.insertRow(i);
+                                        for (j = 0; j < 4; j++){
+                                            var cell = row.insertCell(j)
+                                            if (j == 0){
+                                                cell.innerHTML ="<a href=\"travel_info.html?=2\">" +  doc.name + "</a>";
+                                                
+                                            }
+                                            else if (j == 1){
+                                                cell.innerHTML = "Travel Request";
+                                            }
+                                            else if (j == 2){
+                                                cell.innerHTML = date;
+                                            }
+                                            else if (j == 3){
+                                                cell.innerHTML = status;
+                                            }   
                                         }
-                                        else if (j == 1){
-                                            cell.innerHTML = "Travel Request";
-                                        }
-                                        else if (j == 2){
-                                            cell.innerHTML = date;
-                                        }
-                                        else if (j == 3){
-                                            cell.innerHTML = status;
-                                        }   
                                     }
+                                        
                                 </script>
                                 <!-- /.col-lg-4 (nested) -->
                                 <div class="col-lg-8">
