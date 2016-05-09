@@ -243,6 +243,18 @@
                                 <script src="../js/db.js"></script>
                                 <script>
                                     
+
+                                    var query_string = {};
+                                    var query = window.location.search.substring(1);
+                                    var vars = query.split("=");
+                                    if (vars.length > 1){
+                                        var name = vars[1].replace("%20"," ").replace("&t","");
+                                        var type = vars[2].replace("&d","");
+                                        var date = vars[3].replace("&s","");
+                                        var status = vars[4];
+                                    }
+                                    // console.log(vars)
+
                                     var count = 0;
                                     var documents = db.documents;
                                     console.log(documents);
@@ -292,6 +304,27 @@
                                             }   
                                         }
                                     }
+                                    var row = table.insertRow(i)
+                                    for (j = 0; j < 4; j++){
+                                            var cell = row.insertCell(j)
+                                            if (j == 0){
+                                                if (type == "Research"){
+                                                    cell.innerHTML ="<a href=\"assistantship_info.html?=3\">" +  name + "</a>";
+                                                }
+                                                else {
+                                                    cell.innerHTML ="<a href=\"assistantship_info.html?=2\">" +  name + "</a>";
+                                                }
+                                            }
+                                            else if (j == 1){
+                                                cell.innerHTML = type;
+                                            }
+                                            else if (j == 2){
+                                                cell.innerHTML = date;
+                                            }
+                                            else if (j == 3){
+                                                cell.innerHTML = status;
+                                            }   
+                                        }
                                 </script>
                                 <!-- /.col-lg-4 (nested) -->
                                 <div class="col-lg-8">

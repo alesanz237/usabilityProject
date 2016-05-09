@@ -173,6 +173,8 @@
                         <script src="../js/db.js"></script>
                         <script>
                             var documents = db.documents;
+
+                            
                             function insert(){
                                 // alert("Assistantship Request Sent!")
                                 // console.log(documents({"id":2}).count());
@@ -189,7 +191,7 @@
                                 }
                                 // document.write(new_assistantship)
                                 // alert(db.documents)
-                                window.location.assign("index.html?n="+name+"&t="+type+"&d=today&s=Started");
+                                // window.location.assign("index.html?n="+name+"&t="+type+"&d=today&s=Started");
                                 if (advisor.length == 0){
                                     $('#advisor').css('border', '1px solid red');
                                     var flag1 = false;
@@ -218,7 +220,7 @@
                                     console.log(flag1);
                                     console.log(flag2);
                                     console.log(flag3);
-                                    window.location.assign("index.html?n="+name+"&t="+type+"&d=Today&s=Started");
+                                    window.location.assign("assistantships.html?n="+name+"&t="+type+"&d=Today&s=Started");
                                 }
                                 else{
                                     console.log(flag1);
