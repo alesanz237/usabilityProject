@@ -120,6 +120,15 @@
                         <li>
                             <a href=""><i class="fa fa-plus fa-fw"></i> New Document</a>
                             <ul class="nav nav-second-level">
+<<<<<<< HEAD
+
+                               
+                            <!-- <li>
+                                    <a href="new_assistantship.html">Assistantship Request</a>
+                                </li> -->
+
+=======
+>>>>>>> origin/master
                                 <li>
                                     <a href="new_purchaseOrders.html">Purchase Order</a>
                                 </li>
@@ -265,7 +274,7 @@
                                     var table = document.getElementById("document_table");
                                     var header = table.createTHead();
                                     var row = header.insertRow(0);
-                                    for (i = 0; i < 4; i ++){
+                                    for (i = 0; i < 5; i ++){
                                         var cell = row.insertCell(i);
                                         if (i == 0){
                                             cell.innerHTML = "<strong> Name </strong>";
@@ -279,6 +288,10 @@
                                         else if (i == 3){
                                             cell.innerHTML = "<strong> Status </strong>";
                                         } 
+                                        else if (i == 4){
+                                            cell.innerHTML = "<strong> Send  </strong>";
+                                        }
+
                                     }
                                     // var row = hearder.insertRow
 
@@ -286,7 +299,7 @@
                                         var row = table.insertRow(i-1)
                                         var doc = db.documents[i]
                                         console.log(doc)
-                                        for (j = 0; j < 4; j++){
+                                        for (j = 0; j < 5; j++){
                                             var cell = row.insertCell(j)
                                             console.log(doc.type)
                                             if (j == 0){
@@ -307,6 +320,9 @@
                                             }
                                             else if (j == 3){
                                                 cell.innerHTML = doc.status;
+                                            }  
+                                            else if (j == 4){
+                                                cell.innerHTML = "<button>Submit</button>";
                                             }   
                                         }
                                     }
