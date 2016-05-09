@@ -120,13 +120,6 @@
                         <li>
                             <a href=""><i class="fa fa-plus fa-fw"></i> New Document</a>
                             <ul class="nav nav-second-level">
-<<<<<<< HEAD
-                               
-=======
-                                <!-- <li>
-                                    <a href="new_assistantship.html">Assistantship Request</a>
-                                </li> -->
->>>>>>> origin/master
                                 <li>
                                     <a href="new_purchaseOrders.html">Purchase Order</a>
                                 </li>
@@ -288,6 +281,7 @@
                                         } 
                                     }
                                     // var row = hearder.insertRow
+
                                     for (i = 2; i < 4; i++){
                                         var row = table.insertRow(i-1)
                                         var doc = db.documents[i]
@@ -339,6 +333,9 @@
                                             else if (j == 1){
                                                 if (type =="purchase%20order"){
                                                     cell.innerHTML ="Purchase Order";
+                                                }
+                                                else{
+                                                    cell.innerHTML ="Travel Request"
                                                 }
                                                 // cell.innerHTML = type;
                                             }
