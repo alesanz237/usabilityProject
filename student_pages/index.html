@@ -233,7 +233,7 @@
                         var table = document.getElementById("document_table");
                         var header = table.createTHead();
                         var row = header.insertRow(0);
-                        for (i = 0; i < 4; i ++){
+                        for (i = 0; i < 5; i ++){
                             var cell = row.insertCell(i);
                             if (i == 0){
                                 cell.innerHTML = "<strong> Name </strong>";
@@ -246,6 +246,9 @@
                             }
                             else if (i == 3){
                                 cell.innerHTML = "<strong> Status </strong>";
+                            } 
+                            else if (j == 4){
+                                cell.innerHTML = "<button>Submit</button>";
                             } 
                         }
                         // var row = hearder.insertRow
