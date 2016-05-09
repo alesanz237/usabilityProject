@@ -259,7 +259,7 @@
                                         var date = vars[3].replace("&s","");
                                         var status = vars[4];
                                     }
-                                    
+                                    console.log(vars);
                                     var document_info = []
                                     var assistantships = db.assistantship_information;
                                     console.log(assistantships);
@@ -312,8 +312,9 @@
                                             }   
                                         }
                                     }
+                                    console.log(i)
                                     if (name.length > 0 && type.length > 0 && date.length > 0 && status.length > 0){
-                                        var row = table.insertRow(i);
+                                        var row = table.insertRow(i-1);
                                         for (j = 0; j < 4; j++){
                                             var cell = row.insertCell(j)
                                             if (j == 0){
@@ -326,10 +327,16 @@
                                                 else if (type == "Travel"){
                                                     cell.innerHTML ="<a href=\"travel_info.html?=2\">" +  name + "</a>";
                                                 }
+                                                else if (type =="purchase%20order"){
+                                                    cell.innerHTML ="<a href=\"purchase_info.html?=5\">" +  name + "</a>";
+                                                }
 
                                             }
                                             else if (j == 1){
-                                                cell.innerHTML = type;
+                                                if (type =="purchase%20order"){
+                                                    cell.innerHTML ="Purchase Order";
+                                                }
+                                                // cell.innerHTML = type;
                                             }
                                             else if (j == 2){
                                                 cell.innerHTML = date;

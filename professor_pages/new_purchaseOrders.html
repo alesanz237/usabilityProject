@@ -143,7 +143,7 @@
             <!-- /.row -->
             
  <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-4" style="width:100%">
                     <div class="panel panel-green">
                         <div class="panel-heading">
                             Please fill the fields below
@@ -168,7 +168,7 @@
                                 <input type="text" pattern="[A-Za-z]" class="form-control" placeholder="Estimated Price" id="estimatedPrice"  value="" require>
                                         <br>
                         
-                                 <input type="submit" value="Create" class="btn btn-lg btn-success btn-block" style="color:white;">
+                                 <input onclick="insert()" value="Create" class="btn btn-lg btn-success btn-block" style="color:white;">
                                         <br>
                             
                           
@@ -176,6 +176,65 @@
                            
                      
                         </div>
+                        <script src="../js/db.js"></script>
+                        <script>
+                            var documents = db.documents;
+                            function insert(){
+                                // alert("Assistantship Request Sent!")
+                                // console.log(documents({"id":2}).count());
+                                // .insert({"id":2,"name":"TA Assistantship","type":"Assistantship","date":"28/Apr/2016, 03:05:03 PM","status":"Waiting for endorsement","progress":60,"faculty":"Electrical Engineering","major":"Computer Engineering","advisor":"Wilson","project":"RISC","task":"code"})
+                                var purchaseMotive = $('#purchaseMotive').val();
+                                var item           = $('#item').val();
+                                var quantity       = $('#quantity').val();
+                                var estimatedPrice = $('#estimatedPrice').val();
+                                // window.location.assign("index.html?n="+name+"&t="+type+"&d=today&s=Started");
+                                if (purchaseMotive.length == 0){
+                                    $('#purchaseMotive').css('border', '1px solid red');
+                                    var flag1 = false;
+                                }
+                                else{
+                                    $('#purchaseMotive').css('border', '1px solid #ccc');
+                                    var flag1 = true;
+                                }
+                                if (item.length == 0){
+                                    $('#item').css('border', '1px solid red');
+                                    var flag2 = false;
+                                }
+                                else{
+                                    $('#item').css('border', '1px solid #ccc');
+                                    var flag2 = true;
+                                }
+                                if (quantity.length == 0){
+                                    $('#quantity').css('border', '1px solid red');
+                                    var flag3 = false;
+                                }
+                                else{
+                                    $('#quantity').css('border', '1px solid #ccc');
+                                    var flag3 = true;
+                                }
+                                if (estimatedPrice.length == 0){
+                                    $('#estimatedPrice').css('border', '1px solid red');
+                                    var flag4 = false;
+                                }
+                                else{
+                                    $('#estimatedPrice').css('border', '1px solid #ccc');
+                                    var flag4 = true;
+                                }
+                                if (flag1 == true && flag2 == true && flag3 == true && flag4 == true){
+                                    console.log(flag1);
+                                    console.log(flag2);
+                                    console.log(flag3);
+                                    window.location.assign("index.html?n="+item+"&t=purchase%20order&d=Today&s=Started");
+                                }
+                                else{
+                                    console.log(flag1);
+                                    console.log(flag2);
+                                    console.log(flag3);
+                                }
+                                
+                            }
+                            
+                        </script>
                         
                     </div>
                     <!-- /.col-lg-4 -->
