@@ -120,12 +120,15 @@
                         <li>
                             <a href=""><i class="fa fa-plus fa-fw"></i> New Document</a>
                             <ul class="nav nav-second-level">
+<<<<<<< HEAD
 
                                
                             <!-- <li>
                                     <a href="new_assistantship.html">Assistantship Request</a>
                                 </li> -->
 
+=======
+>>>>>>> origin/master
                                 <li>
                                     <a href="new_purchaseOrders.html">Purchase Order</a>
                                 </li>
@@ -262,7 +265,7 @@
                                         var date = vars[3].replace("&s","");
                                         var status = vars[4];
                                     }
-                                    
+                                    console.log(vars);
                                     var document_info = []
                                     var assistantships = db.assistantship_information;
                                     console.log(assistantships);
@@ -291,6 +294,7 @@
 
                                     }
                                     // var row = hearder.insertRow
+
                                     for (i = 2; i < 4; i++){
                                         var row = table.insertRow(i-1)
                                         var doc = db.documents[i]
@@ -322,8 +326,9 @@
                                             }   
                                         }
                                     }
+                                    console.log(i)
                                     if (name.length > 0 && type.length > 0 && date.length > 0 && status.length > 0){
-                                        var row = table.insertRow(i);
+                                        var row = table.insertRow(i-1);
                                         for (j = 0; j < 4; j++){
                                             var cell = row.insertCell(j)
                                             if (j == 0){
@@ -336,10 +341,19 @@
                                                 else if (type == "Travel"){
                                                     cell.innerHTML ="<a href=\"travel_info.html?=2\">" +  name + "</a>";
                                                 }
+                                                else if (type =="purchase%20order"){
+                                                    cell.innerHTML ="<a href=\"purchase_info.html?=5\">" +  name + "</a>";
+                                                }
 
                                             }
                                             else if (j == 1){
-                                                cell.innerHTML = type;
+                                                if (type =="purchase%20order"){
+                                                    cell.innerHTML ="Purchase Order";
+                                                }
+                                                else{
+                                                    cell.innerHTML ="Travel Request"
+                                                }
+                                                // cell.innerHTML = type;
                                             }
                                             else if (j == 2){
                                                 cell.innerHTML = date;

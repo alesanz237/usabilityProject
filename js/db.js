@@ -30,6 +30,7 @@ var db = {
     ],
     purchase_information: [
         {"id":4,"name":"Macbook Pro 2016","status":"Application Created","date":"today","user":"Nestor Rodriguez","location":"Ingenieria Electrica"},
+        {"id":5,"name":"Macbook 2016","status":"Application Created","date":"today","user":"Nestor Rodriguez","location":"Ingenieria Electrica"}
     ],
     insertDocument:function(){
     	documents.push({"id":2,"name":"name","type":"Assistantship","date":"28/Apr/2016, 03:05:03 PM","status":"Application Started","progress":0,"faculty":"Elctrical Engineering","major":"Computer Engineering","advisor":"advisor","project":"project","task":"task"})
