@@ -13,6 +13,12 @@ var db = {
         {"id":3,"name":"Tapia Conference","type":"Travel Request","date":"20/Apr/2016, 04:40:03 PM","status":"Completed","progress":100},
         {"id":4,"name":"Macbook Pro 2016","type":"Purchase Order","date":"01/May/2016, 09:00:00 AM","status":"Completed","progress":100},
     ],
+    student_documents: [
+        {"id":0,"name":"TA Assistantship","type":"Assistantship","date":"28/Apr/2016, 03:05:03 PM","status":"Waiting for endorsement","progress":60,"faculty":"Electrical Engineering","major":"Computer Engineering","advisor":"Manuel Rodriguez","project":"RISC","task":"code"},
+        {"id":1,"name":"Tapia Conference","type":"Travel Request","date":"28/Apr/2016, 03:05:03 PM","status":"Completed","progress":100},
+        {"id":3,"name":"Tapia Conference","type":"Travel Request","date":"20/Apr/2016, 04:40:03 PM","status":"Completed","progress":100},
+        {"id":4,"name":"Macbook Pro 2016","type":"Purchase Order","date":"01/May/2016, 09:00:00 AM","status":"Completed","progress":100},
+    ],
 	assistantship_information: [
     	{"id":0,"name":"TA Assistantship","status":"Application Created","date":"17/Jan/2016, 03:05:03 PM","user":"Sandra Montalvo Solorzano","location":"Ingenieria Electrica"},
         {"id":0,"name":"TA Assistantship","status":"Application In Transit","date":"17/Jan/2016, 03:15:12 PM","user":"Sandra Montalvo Solorzano","location":"Ingenieria Electrica"},
