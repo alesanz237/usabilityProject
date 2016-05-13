@@ -51,23 +51,11 @@
 
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
-                
-                   
-                    <!-- /.dropdown-messages -->
-                </li>
-                <!-- /.dropdown -->
-             
-                <!-- /.dropdown -->
-               
-                    <!-- /.dropdown-alerts -->
-                </li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                     
+                       
                         <li><a href="../index.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
@@ -80,47 +68,31 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                            </div>
-                            <!-- /input-group -->
-                        </li>
-                        <!-- <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i>My Documents</a>
-                        </li> -->
                        
                         <li>
-                            <a href="#"><i class="fa fa-plus fa-fw"></i> New Document<span class="fa arrow"></span></a>
+                            <a href=""><i class="fa fa-plus fa-fw"></i> New Document</a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="new_assistantship.html">Assistantship Request</a>
                                 </li>
                                 <li>
-                                    <a href="new_travel.html">Travel Request</a>
+                                    <a href="new_travelRequest.html">Travel Request</a>
                                 </li>
-                                <li>
-                                    <a href="new_purchaseOrders.html">Purchase Order</a>
+                                  <li>
+                                    <a href="new_otherdocument.html">Other Document</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+
                          <li>
-                            <a href="index.html"><i class="fa fa-folder fa-fw"></i> My Documents<span class="fa arrow"></span></a>
+                            <a href="index.html"><i class="fa fa-folder fa-fw"></i> My Documents</a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="assistanships.html">Assistantships</a>
+                                    <a href="assistantships.html">Assistantships</a>
                                 </li>
                                 <li>
-                                    <a href="travel.html">Travel Requests</a>
-                                </li>
-                                <li>
-                                    <a href="purchaseOrders.html">Purchase Orders</a>
+                                    <a href="travel_requests.html">Travel Requests</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -134,21 +106,143 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">New Assistantship</h1>
+                    <h1 class="page-header">New Assistanship Request</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-         
            
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-4" style="width:100%">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            Please fill the fields below
+                        </div>
+                        <div class="panel-body">
+                            <p>Assistant Name: Álida Martinez</p>
+                            <p>Assistant Number: 502-15-6168</p>
+                            <p>Department: CID</p>
+                    
+                            <!-- <p>Total Payment: 4000.00</p> -->
+                            <!-- <p>Tasks: Teaching Assistant for Capstone Course</p> -->
+                            <br>
+                            <form>
+                                <input type="text" pattern="[A-Za-z]" class="form-control" placeholder="Advisor" id="advisor"   value="" required>
+                                        <br>
+                                <input type="text" pattern="[A-Za-z]" class="form-control" placeholder="Project" id="project"  value="" required>
+                                        <br>
+                                <input type="text" pattern="[A-Za-z]" class="form-control" placeholder="Task" id="task"   value="" required>
+                                <br>
+                                <select id="type" class="form-control">
+                                  <option value="research">Research</option>
+                                  <option value="ta">TA</option>
+                                </select>
+                               
+                            
+                          
+                            </form>
+                           <!-- <button onclick="insert()">JHello</button> -->
+
+
+                     
+                        </div>
+                        <script src="../js/db.js"></script>
+                        <script>
+                            var documents = db.documents;
+
+                            
+                            function insert(){
+                                // alert("Assistantship Request Sent!")
+                                // console.log(documents({"id":2}).count());
+                                // .insert({"id":2,"name":"TA Assistantship","type":"Assistantship","date":"28/Apr/2016, 03:05:03 PM","status":"Waiting for endorsement","progress":60,"faculty":"Electrical Engineering","major":"Computer Engineering","advisor":"Wilson","project":"RISC","task":"code"})
+                                var advisor = $('#advisor').val();
+                                var project = $('#project').val();
+                                var task    = $('#task').val();
+                                var type    = $('#type option:selected').text();
+                                if (type == "TA"){
+                                    var name = "TA Assistantship";
+                                }
+                                else{
+                                    var name = "Research Assistantship";
+                                }
+                                // document.write(new_assistantship)
+                                // alert(db.documents)
+                                // window.location.assign("index.html?n="+name+"&t="+type+"&d=today&s=Started");
+                                if (advisor.length == 0){
+                                    $('#advisor').css('border', '1px solid red');
+                                    var flag1 = false;
+                                }
+                                else{
+                                    $('#advisor').css('border', '1px solid #ccc');
+                                    var flag1 = true;
+                                }
+                                if (project.length == 0){
+                                    $('#project').css('border', '1px solid red');
+                                    var flag2 = false;
+                                }
+                                else{
+                                    $('#project').css('border', '1px solid #ccc');
+                                    var flag2 = true;
+                                }
+                                if (task.length == 0){
+                                    $('#task').css('border', '1px solid red');
+                                    var flag3 = false;
+                                }
+                                else{
+                                    $('#task').css('border', '1px solid #ccc');
+                                    var flag3 = true;
+                                }
+                                if (flag1 == true && flag2 == true && flag3 == true){
+                                    console.log(flag1);
+                                    console.log(flag2);
+                                    console.log(flag3);
+                                    window.location.assign("assistantships.html?n="+name+"&t="+type+"&d=Today&s=Started");
+                                }
+                                else{
+                                    console.log(flag1);
+                                    console.log(flag2);
+                                    console.log(flag3);
+                                }
+                                
+                            }
+                            
+                        </script>
+                    </div>
+                    <!-- /.col-lg-4 -->
+                
+                <!--Butons-->
+                          
+
+                           <!---->
+
+
+<div class="container">
+    <div class="row">
+        <div class="span6 offset3">
+            <form>
+                <p style="line-height: 100px; text-align: center;"><button type="submit" class="btn btn-lg btn-success";>Save</button>
+
+                <button type="submit" class="btn btn-lg btn-success">Save and Send</button>
+                </p>
+
+                
+            </form>
+        </div>
+    </div>
+</div>
+
             </div>
-                <!-- /.col-lg-6 -->
-            </div>
-        
+            <!-- /.row -->
+            
+          
         </div>
         <!-- /#page-wrapper -->
 
     </div>
     <!-- /#wrapper -->
+    <!--Validacion Inicio-->
+
+    <!--Validacion Fin-->
 
     <!-- jQuery -->
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
@@ -158,6 +252,11 @@
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="../bower_components/raphael/raphael-min.js"></script>
+    <script src="../bower_components/morrisjs/morris.min.js"></script>
+    <script src="../js/morris-data.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
