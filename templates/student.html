@@ -100,11 +100,11 @@
                             <a href="#"><i class="fa fa-folder fa-fw"></i> My Documents<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#" onclick="getAssistantships()">Assistantship Request</a>
+                                    <a href="#" onclick="getReceivedAssistantships()">Assistantship Request</a>
                                 </li>
                                 
                                 <li>
-                                    <a href="#" onclick="getTravelRequests()">Travel Requests</a>
+                                    <a href="#" onclick="getReceivedTravelRequests()">Travel Requests</a>
                                 </li>
                             </ul>
                     </ul>
@@ -126,10 +126,7 @@
 
             <div class="btn-group btn-group-justified" role="group" aria-label="...">
                 <div class="btn-group" role="group">
-                    <button id="documents_button" type="button" class="btn btn-default active" onclick="getStudentDocuments()">All Documents</button>
-                </div>
-                <div class="btn-group" role="group">
-                    <button id="documents_received_button" type="button" class="btn btn-default" onclick="getReceivedDocuments()">Received Documents</button>
+                    <button id="documents_received_button" type="button" class="btn btn-default active" onclick="getReceivedDocuments()">Received Documents</button>
                 </div>
                 <div class="btn-group" role="group">
                     <button id="documents_sent_button" type="button" class="btn btn-default" onclick="getSentDocuments()">Sent Documents</button>
@@ -154,27 +151,7 @@
 
             <!-- /.row -->
              <!-- /.panel-heading -->
-            <div class="row" id="all_document_row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel panel-green"> 
-                            <div class="panel-heading" >
-                                All Documents
-                            </div>
-                            <div class="panel-body">
-                                <div class="dataTable_wrapper">
-                                    <span id="no_documents"></span>
-                                    <table class="table table-striped table-bordered table-hover" id="documents_table">
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="row" id="received_document_row" style="display: none">
+            <div class="row" id="received_document_row" style="display: block">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel panel-green"> 
@@ -214,33 +191,11 @@
             <script>
 
                 // Global variables
-                var documents_table = document.getElementById("documents_table");
                 var received_document_table = document.getElementById("received_document_table");
-                var sent_document_table = document.getElementById("sent_document_table"); 
-                var documents_table_header = documents_table.createTHead();
+                var sent_document_table = document.getElementById("sent_document_table");
                 var received_document_table_header = received_document_table.createTHead();
                 var sent_document_table_header = sent_document_table.createTHead();
                 
-                // Inserting table header
-                function insertDocumentTableHeaders() {
-
-                    var row = documents_table_header.insertRow(0);
-                    var cell = row.insertCell(0);
-                    cell.innerHTML = "<strong>Document Name</strong>";
-                    cell = row.insertCell(1);
-                    cell.innerHTML = "<strong>Requester</strong>";
-                    cell = row.insertCell(2);
-                    cell.innerHTML = "<strong>Date</strong>";
-                    var cell = row.insertCell(3);
-                    cell.innerHTML = "<strong>Type</strong>";
-                    var cell = row.insertCell(4);
-                    cell.innerHTML = "<strong>Status</strong>";
-                    cell = row.insertCell(5);
-                    cell.innerHTML = "<strong>Send Document</strong>"; 
-                    cell = row.insertCell(6);
-                    cell.innerHTML = "<strong>Edit Document</strong>"; 
-                }
-
                 function insertReceivedDocumentTableHeaders() {
 
                     var row = received_document_table_header.insertRow(0);
@@ -253,11 +208,7 @@
                     var cell = row.insertCell(3);
                     cell.innerHTML = "<strong>Type</strong>";
                     var cell = row.insertCell(4);
-                    cell.innerHTML = "<strong>Status</strong>";
-                    cell = row.insertCell(5);
-                    cell.innerHTML = "<strong>Send Document</strong>"; 
-                    cell = row.insertCell(6);
-                    cell.innerHTML = "<strong>Edit Document</strong>"; 
+                    cell.innerHTML = "<strong>Status</strong>"; 
                 }
 
                 function insertSentDocumentTableHeaders() {
@@ -273,117 +224,63 @@
                     cell.innerHTML = "<strong>Type</strong>";
                     var cell = row.insertCell(4);
                     cell.innerHTML = "<strong>Status</strong>";
-                    cell = row.insertCell(5);
-                    cell.innerHTML = "<strong>Send Document</strong>"; 
-                    cell = row.insertCell(6);
-                    cell.innerHTML = "<strong>Edit Document</strong>"; 
                 }
                 
 
                 // Getting table values and inserting them
                 $.getJSON('/_getStudentDocuments',
                     function (documents) {
-                        doc_status = ""
                         
                         var the_documents = documents.documents
-                        
-                        insertDocumentTableHeaders()
-                        // insertTableHeaders2();
-                        console.log(doc_status)
-                        console.log(the_documents)
+                        var received_documents = false; // Used to determine if there are any received
+
+                        console.log(the_documents);
+                        // insertReceivedDocumentTableHeaders()
+                        if (the_documents.length == 0){
+                          $("#no_received_documents").text("No Received Documents");  
+                        }
+
+                        // Checking if there are received documents
                         for (var i = 0; i < the_documents.length; i++){
-                            // console.log(the_documents[i]);
-                            doc = the_documents[i]
-                            
-                            var row = documents_table_header.insertRow(i+1);
-                            for (var j = 0; j < 7; j++){
-                                var cell = row.insertCell(j);
-                                if (j == 0){
-                                    cell.innerHTML = "<a href=\"/doc_info?name="+doc.name+"\">"+doc.name+"</a>";
-                                }
-                                if (j == 1){
-                                    cell.innerHTML = doc.requester;
-                                }
-                                if (j == 2){
-                                    cell.innerHTML = doc.date;
-                                }
-                                if (j == 3){
-                                    cell.innerHTML = doc.type;
-                                }
-                                if (j == 4){
-                                    cell.innerHTML = doc.status;
-                                }
-                                if (j == 5){
-                                    if (doc.status == "Created"){
-                                        cell.innerHTML =  "<input type=\"button\" value=\"Send\" onclick=\"+showSendModal("+ doc.id+")\" class=\"btn btn-success\"/>" 
+                            if (the_documents[i].sent_status == "received") {
+                                received_documents = true;
+                                break;
+                            }
+                        }
+
+                        if (received_documents){
+                            insertReceivedDocumentTableHeaders();
+                            for (var i = 0; i < the_documents.length; i++){
+                                // console.log(the_documents[i]);
+                                doc = the_documents[i]
+                                var row = received_document_table_header.insertRow(i+1);
+                                for (var j = 0; j < 5; j++){
+                                    var cell = row.insertCell(j);
+                                    if (j == 0){
+                                        cell.innerHTML = "<a href=\"/doc_info?id="+doc.id+"\">"+doc.name+"</a>";
                                     }
-                                    else{
-                                        cell.innerHTML = "Document Already Sent"
+                                    if (j == 1){
+                                        cell.innerHTML = doc.requester;
                                     }
-                                }
-                                if (j == 6){
-                                    cell.innerHTML = "<input type=\"button\" value=\"Edit\" onclick=\"+showEditDocumentModal("+ doc.id+")\" class=\"btn btn-success\"/>"
+                                    if (j == 2){
+                                        cell.innerHTML = doc.date;
+                                    }
+                                    if (j == 3){
+                                        cell.innerHTML = doc.type;
+                                    }
+                                    if (j == 4){
+                                        cell.innerHTML = doc.status;
+                                    }
                                 }
                             }
                         }
+                        else{
+                           $("#no_received_documents").text("No Received Documents"); 
+                        }    
                     });
-
-                function getStudentDocuments(){
-                    $('#documents_button').addClass("active");
-                    $('#documents_sent_button').removeClass("active");
-                    $('#documents_received_button').removeClass("active");
-                    $("#all_document_row").css("display","block");
-                    $("#received_document_row").css("display","none");
-                    $("#sent_document_row").css("display","none");
-
-                    $("#documents_table tr").remove(); 
-                    $("#documents_table th").remove(); 
-
-                    $.getJSON('/_getStudentDocuments',
-                    function (documents) {
                         
-                        var the_documents = documents.documents
-                        
-                        insertDocumentTableHeaders();
-                        for (var i = 0; i < the_documents.length; i++){
-                            // console.log(the_documents[i]);
-                            doc = the_documents[i]
-                            
-                            var row = documents_table_header.insertRow(i+1);
-                            for (var j = 0; j < 7; j++){
-                                var cell = row.insertCell(j);
-                                if (j == 0){
-                                    cell.innerHTML = "<a href=\"/doc_info?name="+doc.name+"\">"+doc.name+"</a>";
-                                }
-                                if (j == 1){
-                                    cell.innerHTML = doc.requester;
-                                }
-                                if (j == 2){
-                                    cell.innerHTML = doc.date;
-                                }
-                                if (j == 3){
-                                    cell.innerHTML = doc.type;
-                                }
-                                if (j == 4){
-                                    cell.innerHTML = doc.status;
-                                }
-                                if (j == 5){
-                                    if (doc.status == "Created"){
-                                        cell.innerHTML = 
-                                            "<input type=\"button\" value=\"Send\" onclick=\"showSendModal("+doc.id+","+doc.name+",0)\" class=\"btn btn-success\"/>" 
-                                        
-                                    }
-                                    else{
-                                        cell.innerHTML = "Document Already Sent"
-                                    }
-                                }
-                                if (j == 6){
-                                    cell.innerHTML = "<input type=\"button\" value=\"Edit\" onclick=\"+showEditDocumentModal("+ doc.id+")\" class=\"btn btn-success\"/>"
-                                }
-                            }
-                        }
-                    });
-                }
+
+                
 
                 function getSentDocuments(){
                     $('#documents_received_button').removeClass("active");
@@ -400,19 +297,32 @@
                     function (documents) {
                         
                         var the_documents = documents.documents
-                        
-                        insertSentDocumentTableHeaders();
-                        var counter = 0 // Counter used to determined if there are any sent documents
+                        var sent_documents = false; // Used to determine if there are any received
+
+                        console.log(the_documents);
+                        // insertReceivedDocumentTableHeaders()
+                        if (the_documents.length == 0){
+                          $("#no_sent_documents").text("No Sent Documents");  
+                        }
+
+                        // Checking if there are received documents
                         for (var i = 0; i < the_documents.length; i++){
-                            // console.log(the_documents[i]);
-                            doc = the_documents[i]
-                            
-                            if (doc.sent_status == "sent"){
+                            if (the_documents[i].sent_status == "sent") {
+                                sent_documents = true;
+                                break;
+                            }
+                        }
+
+                        if (sent_documents){
+                            insertSentDocumentTableHeaders();
+                            for (var i = 0; i < the_documents.length; i++){
+                                // console.log(the_documents[i]);
+                                doc = the_documents[i]
                                 var row = sent_document_table_header.insertRow(i+1);
-                                for (var j = 0; j < 7; j++){
+                                for (var j = 0; j < 5; j++){
                                     var cell = row.insertCell(j);
                                     if (j == 0){
-                                        cell.innerHTML = "<a href=\"/doc_info?name="+doc.name+"\">"+doc.name+"</a>";
+                                        cell.innerHTML = "<a href=\"/doc_info?id="+doc.id+"\">"+doc.name+"</a>";
                                     }
                                     if (j == 1){
                                         cell.innerHTML = doc.requester;
@@ -426,26 +336,12 @@
                                     if (j == 4){
                                         cell.innerHTML = doc.status;
                                     }
-                                    if (j == 5){
-                                        if (doc.status == "Created"){
-                                        cell.innerHTML = "<input type=\"button\" value=\"Send\" onclick=\"showSendModal("+doc.id+","+doc.name+",0)\" class=\"btn btn-success\"/>" 
-                                        }
-                                        else{
-                                            cell.innerHTML = "Document Already Sent"
-                                        }
-                                    }
-                                    if (j == 6){
-                                        cell.innerHTML = "<input type=\"button\" value=\"Edit\" onclick=\"+showEditDocumentModal("+ doc.id+")\" class=\"btn btn-success\"/>"
-                                    }
                                 }
                             }
-                            else{
-                                counter +=1;
-                            }
                         }
-                        if (counter == the_documents.length) {
-                            $("#no_received_documents").text("No Sent Documents");
-                        } 
+                        else{
+                           $("#no_sent_documents").text("No Sent Documents"); 
+                        }    
                     });
                         
                 }
@@ -465,18 +361,32 @@
                     function (documents) {
                         
                         var the_documents = documents.documents
-                        var counter = 0 // Counter used to determined if there are any sent documents
+                        var received_documents = false; // Used to determine if there are any received
 
+                        console.log(the_documents);
+                        // insertReceivedDocumentTableHeaders()
+                        if (the_documents.length == 0){
+                          $("#no_received_documents").text("No Received Documents");  
+                        }
+
+                        // Checking if there are received documents
                         for (var i = 0; i < the_documents.length; i++){
-                            // console.log(the_documents[i]);
-                            doc = the_documents[i]
-                            
-                            if (doc.sent_status == "received"){
+                            if (the_documents[i].sent_status == "received") {
+                                received_documents = true;
+                                break;
+                            }
+                        }
+
+                        if (received_documents){
+                            insertReceivedDocumentTableHeaders();
+                            for (var i = 0; i < the_documents.length; i++){
+                                // console.log(the_documents[i]);
+                                doc = the_documents[i]
                                 var row = received_document_table_header.insertRow(i+1);
-                                for (var j = 0; j < 7; j++){
+                                for (var j = 0; j < 5; j++){
                                     var cell = row.insertCell(j);
                                     if (j == 0){
-                                        cell.innerHTML = "<a href=\"/doc_info?name="+doc.name+"\">"+doc.name+"</a>";
+                                        cell.innerHTML = "<a href=\"/doc_info?id="+doc.id+"\">"+doc.name+"</a>";
                                     }
                                     if (j == 1){
                                         cell.innerHTML = doc.requester;
@@ -490,26 +400,12 @@
                                     if (j == 4){
                                         cell.innerHTML = doc.status;
                                     }
-                                    if (j == 5){
-                                        if (doc.status == "Created"){
-                                        cell.innerHTML = "<input type=\"button\" value=\"Send\" onclick=\"+showSendModal("+ doc.id+")\" class=\"btn btn-success\"/>"
-                                        }
-                                        else{
-                                            cell.innerHTML = "Document Already Sent"
-                                        }
-                                    }
-                                    if (j == 6){
-                                        cell.innerHTML = "<input type=\"button\" value=\"Edit\" onclick=\"+showEditDocumentModal("+ doc.id+")\" class=\"btn btn-success\"/>"
-                                    }
                                 }
                             }
-                            else{
-                                counter +=1;
-                            }
                         }
-                        if (counter == the_documents.length) {
-                            $("#no_received_documents").text("No Received Documents");
-                        } 
+                        else{
+                           $("#no_received_documents").text("No Received Documents"); 
+                        }    
                     });
                         
                 }
@@ -524,72 +420,7 @@
                       });
                 }
 
-                function getAssistantships() {
-                    $('#page_header').text("My Assistantships");
-
-                    $('#documents_received_button').removeClass("active");
-                    $('#documents_sent_button').removeClass("active");
-                    $('#documents_button').addClass("active");
-                    $("#all_document_row").css("display","block");
-                    $("#received_document_row").css("display","none");
-                    $("#sent_document_row").css("display","none");
-
-                    $("#documents_button").attr("onclick","getAssistantships()");
-                    $("#documents_sent_button").attr("onclick","getSentAssistanships()");
-                    $("#documents_received_button").attr("onclick","getReceivedAssistantships()");
-                    
-                    $("#documents_table tr").remove(); 
-                    $("#documents_table th").remove(); 
-                    
-                    $.getJSON('/_getStudentAssistantships',
-                    function (documents) {
-                        
-                        var the_documents = documents.documents
-
-                        insertDocumentTableHeaders();
-                        
-                        console.log(doc_status)
-                        console.log(the_documents)
-                        for (var i = 0; i < the_documents.length; i++){
-                            // console.log(the_documents[i]);
-                            doc = the_documents[i]
-                            
-                            var row = documents_table_header.insertRow(i+1);
-                        
-                            for (var j = 0; j < 7; j++){
-                                var cell = row.insertCell(j);
-                                if (j == 0){
-                                    cell.innerHTML = "<a href=\"/doc_info?name="+doc.name+"\">"+doc.name+"</a>";
-                                }
-                                if (j == 1){
-                                    cell.innerHTML = doc.requester;
-                                }
-                                if (j == 2){
-                                    cell.innerHTML = doc.date;
-                                }
-                                if (j == 3){
-                                    cell.innerHTML = doc.type;
-                                }
-                                if (j == 4){
-                                    cell.innerHTML = doc.status;
-                                }
-                                if (j == 5){
-                                    if (doc.status == "Created"){
-                                        cell.innerHTML = "<input type=\"button\" value=\"Send\" onclick=\"+showSendModal("+ doc.id+")\" class=\"btn btn-success\"/>"
-                                    }
-                                    else{
-                                        cell.innerHTML = "Document Already Sent"
-                                    }
-                                }
-                                if (j == 6){
-                                    cell.innerHTML = "<input type=\"button\" value=\"Edit\" onclick=\"+showEditDocumentModal("+ doc.id+")\" class=\"btn btn-success\"/>"
-                                }
-                            }
-                        }
-                    });
-                }
-
-                function getSentAssistanships(){
+                function getSentAssistantships(){
                     $('#documents_received_button').removeClass("active");
                     $('#documents_sent_button').addClass("active");
                     $('#documents_button').removeClass("active");
@@ -599,25 +430,38 @@
 
                     $("#sent_document_table tr").remove(); 
                     $("#sent_document_table th").remove(); 
+                    $("#page_header").text("Assistantship Requests");
 
                     $.getJSON('/_getStudentAssistantships',
                     function (documents) {
-                        doc_status = ""
                         
                         var the_documents = documents.documents
-                        
-                        insertSentDocumentTableHeaders();
-                        var counter = 0 // Counter used to determined if there are any sent documents
+                        var sent_documents = false; // Used to determine if there are any received
+
+                        console.log(the_documents);
+                        // insertReceivedDocumentTableHeaders()
+                        if (the_documents.length == 0){
+                          $("#no_sent_documents").text("No Sent Documents");  
+                        }
+
+                        // Checking if there are received documents
                         for (var i = 0; i < the_documents.length; i++){
-                            // console.log(the_documents[i]);
-                            doc = the_documents[i]
-                            
-                            if (doc.sent_status == "sent"){
+                            if (the_documents[i].sent_status == "sent") {
+                                sent_documents = true;
+                                break;
+                            }
+                        }
+
+                        if (sent_documents){
+                            insertSentDocumentTableHeaders();
+                            for (var i = 0; i < the_documents.length; i++){
+                                // console.log(the_documents[i]);
+                                doc = the_documents[i]
                                 var row = sent_document_table_header.insertRow(i+1);
-                                for (var j = 0; j < 7; j++){
+                                for (var j = 0; j < 5; j++){
                                     var cell = row.insertCell(j);
                                     if (j == 0){
-                                        cell.innerHTML = "<a href=\"/doc_info?name="+doc.name+"\">"+doc.name+"</a>";
+                                        cell.innerHTML = "<a href=\"/doc_info?id="+doc.id+"\">"+doc.name+"</a>";
                                     }
                                     if (j == 1){
                                         cell.innerHTML = doc.requester;
@@ -631,26 +475,12 @@
                                     if (j == 4){
                                         cell.innerHTML = doc.status;
                                     }
-                                    if (j == 5){
-                                        if (doc.status == "Created"){
-                                        cell.innerHTML = "<input type=\"button\" value=\"Send\" onclick=\"+showSendModal("+ doc.id+")\" class=\"btn btn-success\"/>"
-                                        }
-                                        else{
-                                            cell.innerHTML = "Document Already Sent"
-                                        }
-                                    }
-                                    if (j == 6){
-                                        cell.innerHTML = "<input type=\"button\" value=\"Edit\" onclick=\"+showEditDocumentModal("+ doc.id+")\" class=\"btn btn-success\"/>"
-                                    }
                                 }
                             }
-                            else{
-                                counter +=1;
-                            }
                         }
-                        if (counter == the_documents.length) {
-                            $("#no_received_documents").text("No Sent Documents");
-                        } 
+                        else{
+                           $("#no_sent_documents").text("No Sent Documents"); 
+                        }    
                     });
                         
                 }
@@ -664,23 +494,42 @@
                     $("#sent_document_row").css("display","none");
 
                     $("#received_document_table tr").remove(); 
-                    $("#received_document_table th").remove(); 
+                    $("#received_document_table th").remove();
+                    $("#page_header").text("Assistantship Requests"); 
+
+                    $("#documents_sent_button").attr("onclick","getSentAssistantships()");
+                    $("#documents_received_button").attr("onclick","getReceivedAssistantships()");
 
                     $.getJSON('/_getStudentAssistantships',
                     function (documents) {
                         
                         var the_documents = documents.documents
-                        var counter = 0 // Counter used to determined if there are any sent documents
+                        var sent_documents = false; // Used to determine if there are any received
+
+                        console.log(the_documents);
+                        // insertReceivedDocumentTableHeaders()
+                        if (the_documents.length == 0){
+                          $("#no_sent_documents").text("No Sent Documents");  
+                        }
+
+                        // Checking if there are received documents
                         for (var i = 0; i < the_documents.length; i++){
-                            // console.log(the_documents[i]);
-                            doc = the_documents[i]
-                            
-                            if (doc.sent_status == "received"){
-                                var row = received_document_table_header.insertRow(i+1);
-                                for (var j = 0; j < 7; j++){
+                            if (the_documents[i].sent_status == "sent") {
+                                sent_documents = true;
+                                break;
+                            }
+                        }
+
+                        if (sent_documents){
+                            insertSentDocumentTableHeaders();
+                            for (var i = 0; i < the_documents.length; i++){
+                                // console.log(the_documents[i]);
+                                doc = the_documents[i]
+                                var row = sent_document_table_header.insertRow(i+1);
+                                for (var j = 0; j < 5; j++){
                                     var cell = row.insertCell(j);
                                     if (j == 0){
-                                        cell.innerHTML = "<a href=\"/doc_info?name="+doc.name+"\">"+doc.name+"</a>";
+                                        cell.innerHTML = "<a href=\"/doc_info?id="+doc.id+"\">"+doc.name+"</a>";
                                     }
                                     if (j == 1){
                                         cell.innerHTML = doc.requester;
@@ -694,90 +543,14 @@
                                     if (j == 4){
                                         cell.innerHTML = doc.status;
                                     }
-                                    if (j == 5){
-                                        if (doc.status == "Created"){
-                                        cell.innerHTML = "<input type=\"button\" value=\"Send\" onclick=\"+showSendModal("+ doc.id+")\" class=\"btn btn-success\"/>"
-                                        }
-                                        else{
-                                            cell.innerHTML = "Document Already Sent"
-                                        }
-                                    }
-                                    if (j == 6){
-                                        cell.innerHTML = "<input type=\"button\" value=\"Edit\" onclick=\"+showEditDocumentModal("+ doc.id+")\" class=\"btn btn-success\"/>"
-                                    }
-                                }
-                            }
-                            else{
-                                counter +=1;
-                            }
-                        }
-                        if (counter == the_documents.length) {
-                            $("#no_received_documents").text("No Received Documents");
-                        } 
-                    });
-                        
-                }
-
-                function getTravelRequests() {
-                    $('#page_header').text("My Travel Requests");
-
-                    $('#documents_received_button').removeClass("active");
-                    $('#documents_sent_button').removeClass("active");
-                    $('#documents_button').addClass("active");
-                    $("#all_document_row").css("display","block");
-                    $("#received_document_row").css("display","none");
-                    $("#sent_document_row").css("display","none");
-
-                    $("#documents_button").attr("onclick","getTravelRequests()");
-                    $("#documents_sent_button").attr("onclick","getSentTravelRequests()");
-                    $("#documents_received_button").attr("onclick","getReceivedTravelRequests()");
-                    
-                    $("#documents_table tr").remove(); 
-                    $("#documents_table th").remove(); 
-                    
-                    $.getJSON('/_getStudentTravelRequests',
-                    function (documents) {
-                        
-                        var the_documents = documents.documents
-
-                        insertDocumentTableHeaders();
-                        for (var i = 0; i < the_documents.length; i++){
-                            // console.log(the_documents[i]);
-                            doc = the_documents[i]
-                            
-                            var row = documents_table_header.insertRow(i+1);
-                        
-                            for (var j = 0; j < 7; j++){
-                                var cell = row.insertCell(j);
-                                if (j == 0){
-                                    cell.innerHTML = "<a href=\"/doc_info?name="+doc.name+"\">"+doc.name+"</a>";
-                                }
-                                if (j == 1){
-                                    cell.innerHTML = doc.requester;
-                                }
-                                if (j == 2){
-                                    cell.innerHTML = doc.date;
-                                }
-                                if (j == 3){
-                                    cell.innerHTML = doc.type;
-                                }
-                                if (j == 4){
-                                    cell.innerHTML = doc.status;
-                                }
-                                if (j == 5){
-                                    if (doc.status == "Created"){
-                                        cell.innerHTML = "<input type=\"button\" value=\"Send\" onclick=\"+showSendModal("+ doc.id+")\" class=\"btn btn-success\"/>"
-                                    }
-                                    else{
-                                        cell.innerHTML = "Document Already Sent"
-                                    }
-                                }
-                                if (j == 6){
-                                    cell.innerHTML = "<input type=\"button\" value=\"Edit\" onclick=\"+showEditDocumentModal("+ doc.id+")\" class=\"btn btn-success\"/>"
                                 }
                             }
                         }
+                        else{
+                           $("#no_sent_documents").text("No Sent Documents"); 
+                        }    
                     });
+                        
                 }
 
                 function getSentTravelRequests(){
@@ -789,26 +562,39 @@
                     $("#sent_document_row").css("display","block");
 
                     $("#sent_document_table tr").remove(); 
-                    $("#sent_document_table th").remove(); 
+                    $("#sent_document_table th").remove();
+                    $("#page_header").text("Travel Requests"); 
 
                     $.getJSON('/_getStudentTravelRequests',
                     function (documents) {
-                        doc_status = ""
                         
                         var the_documents = documents.documents
-                        
-                        insertSentDocumentTableHeaders();
-                        var counter = 0 // Counter used to determined if there are any sent documents
+                        var sent_documents = false; // Used to determine if there are any received
+
+                        console.log(the_documents);
+                        // insertReceivedDocumentTableHeaders()
+                        if (the_documents.length == 0){
+                          $("#no_sent_documents").text("No Sent Documents");  
+                        }
+
+                        // Checking if there are received documents
                         for (var i = 0; i < the_documents.length; i++){
-                            // console.log(the_documents[i]);
-                            doc = the_documents[i]
-                            
-                            if (doc.sent_status == "sent"){
+                            if (the_documents[i].sent_status == "sent") {
+                                sent_documents = true;
+                                break;
+                            }
+                        }
+
+                        if (sent_documents){
+                            insertSentDocumentTableHeaders();
+                            for (var i = 0; i < the_documents.length; i++){
+                                // console.log(the_documents[i]);
+                                doc = the_documents[i]
                                 var row = sent_document_table_header.insertRow(i+1);
-                                for (var j = 0; j < 7; j++){
+                                for (var j = 0; j < 5; j++){
                                     var cell = row.insertCell(j);
                                     if (j == 0){
-                                        cell.innerHTML = "<a href=\"/doc_info?name="+doc.name+"\">"+doc.name+"</a>";
+                                        cell.innerHTML = "<a href=\"/doc_info?id="+doc.id+"\">"+doc.name+"</a>";
                                     }
                                     if (j == 1){
                                         cell.innerHTML = doc.requester;
@@ -822,26 +608,12 @@
                                     if (j == 4){
                                         cell.innerHTML = doc.status;
                                     }
-                                    if (j == 5){
-                                        if (doc.status == "Created"){
-                                            cell.innerHTML = "<input type=\"button\" value=\"Send\" onclick=\"+showSendModal("+ doc.id+")\" class=\"btn btn-success\"/>"
-                                        }
-                                        else{
-                                            cell.innerHTML = "Document Already Sent"
-                                        }
-                                    }
-                                    if (j == 6){
-                                        cell.innerHTML = "<input type=\"button\" value=\"Edit\" onclick=\"+showEditDocumentModal("+ doc.id+")\" class=\"btn btn-success\"/>"
-                                    }
                                 }
                             }
-                            else{
-                                counter +=1;
-                            }
                         }
-                        if (counter == the_documents.length) {
-                            $("#no_received_documents").text("No Sent Documents");
-                        } 
+                        else{
+                           $("#no_sent_documents").text("No Sent Documents"); 
+                        }    
                     });
                         
                 }
@@ -855,22 +627,42 @@
                     $("#sent_document_row").css("display","none");
 
                     $("#received_document_table tr").remove(); 
-                    $("#received_document_table th").remove(); 
+                    $("#received_document_table th").remove();
+                    $("#page_header").text("Travel Requests"); 
+
+                    $("#documents_sent_button").attr("onclick","getSentTravelRequests()");
+                    $("#documents_received_button").attr("onclick","getReceivedTravelRequests()");
 
                     $.getJSON('/_getStudentTravelRequests',
                     function (documents) {
                         
                         var the_documents = documents.documents
-                        var counter = 0 // Counter used to determined if there are any sent documents
+                        var received_documents = false; // Used to determine if there are any received
+
+                        console.log(the_documents);
+                        // insertReceivedDocumentTableHeaders()
+                        if (the_documents.length == 0){
+                          $("#no_received_documents").text("No Received Documents");  
+                        }
+
+                        // Checking if there are received documents
                         for (var i = 0; i < the_documents.length; i++){
-                            doc = the_documents[i]
-                            
-                            if (doc.sent_status == "received"){
+                            if (the_documents[i].sent_status == "received") {
+                                received_documents = true;
+                                break;
+                            }
+                        }
+
+                        if (received_documents){
+                            insertRecievedDocumentTableHeaders();
+                            for (var i = 0; i < the_documents.length; i++){
+                                // console.log(the_documents[i]);
+                                doc = the_documents[i]
                                 var row = received_document_table_header.insertRow(i+1);
-                                for (var j = 0; j < 7; j++){
+                                for (var j = 0; j < 5; j++){
                                     var cell = row.insertCell(j);
                                     if (j == 0){
-                                        cell.innerHTML = "<a href=\"/doc_info?name="+doc.name+"\">"+doc.name+"</a>";
+                                        cell.innerHTML = "<a href=\"/doc_info?id="+doc.id+"\">"+doc.name+"</a>";
                                     }
                                     if (j == 1){
                                         cell.innerHTML = doc.requester;
@@ -884,26 +676,12 @@
                                     if (j == 4){
                                         cell.innerHTML = doc.status;
                                     }
-                                    if (j == 5){
-                                        if (doc.status == "Created"){
-                                            cell.innerHTML = "<input type=\"button\" value=\"Send\" onclick=\"+showSendModal("+ doc.id+")\" class=\"btn btn-success\"/>"
-                                        }
-                                        else{
-                                            cell.innerHTML = "Document Already Sent"
-                                        }
-                                    }
-                                    if (j == 6){
-                                        cell.innerHTML = "<input type=\"button\" value=\"Edit\" onclick=\"+showEditDocumentModal("+ doc.id+")\" class=\"btn btn-success\"/>"
-                                    }
                                 }
                             }
-                            else{
-                                counter +=1;
-                            }
                         }
-                        if (counter == the_documents.length) {
-                            $("#no_received_documents").text("No Received Documents");
-                        } 
+                        else{
+                           $("#no_received_documents").text("No Received Documents"); 
+                        }    
                     });
                         
                 }  
@@ -997,9 +775,9 @@
                             if (doc.type == "Assistantship Request"){
                                 $('#modal_body').append("<p>Document Name: <strong>"+ doc.name +"</strong></p><p>Requested by <strong>"+ doc.requester +"</strong></p><p>Type: <strong>"+ doc.type +"</strong></p><form><label>Project:</label><input type=\"text\" pattern=\"[A-Za-z]\"  class=\"form-control\" placeholder=\""+ doc.project + "\" id=\"project\" value=\"\" required/><br><label>Advisor:</label><input type=\"text\" pattern=\"[A-Za-z]\"  class=\"form-control\" placeholder=\""+ doc.advisor +"\" id=\"advisor\"   value=\"\" required><br><label>Student:</label><input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\""+ doc.student +"\" id=\"student\"   value=\"\" required><br><label>Task:</label><input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\""+ doc.task +"\" id=\"task\"   value=\"\" required><br><input type=\"hidden\" id=\"doc_id\" value="+ doc.id +"><input  value=\"Save and Send\" onclick=\"saveAndSendAssistantship()\" class=\"btn btn-lg btn-success\" style=\"color:white; margin-left:325px; background-color: #0DE832\"><input  value=\"Save\" onclick=\"saveAssistantship()\" class=\"btn btn-lg btn-success\" style=\"color:white; display:inline-block; margin-left: 20px\"><br></form>");
                             }
-                            else{
-                                $('#modal_body').append("<p>Edited by: Jessica Cotrina Revilla</p><form><label>Document Name:</label><input type=\"text\" pattern=\"[A-Za-z]\"  class=\"form-control\" placeholder=\""+ doc.name+ "\" id=\"doc_name\" value=\"\" required/><br><input type=\"text\" pattern=\"[A-Za-z]\"  class=\"form-control\" placeholder=\"Travel Location\" id=\"travelLocation\"   value=\"\" required><br><input type=\"date\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Departure Date\" id=\"departureDate\"   value=\"\" required><br><input type=\"date\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Return date\" id=\"returnDate\"   value=\"\" required><br><input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Advisor\" id=\"advisor\"  value=\"\" required><br><input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Purpose\" id=\"purpose\"   value=\"\" required></br><input  value=\"Create and Send\" onclick=\"insertTravelAndSend()\" class=\"btn btn-lg btn-success\" style=\"color:white; margin-left:325px; background-color: #0DE832\"><input  value=\"Create\" onclick=\"insertTravel()\" class=\"btn btn-lg btn-success\" style=\"color:white; display:inline-block; margin-left: 20px\"><br></form>");
-                            }
+                            // else{
+                            //     $('#modal_body').append("<p>Edited by: Jessica Cotrina Revilla</p><form><label>Document Name:</label><input type=\"text\" pattern=\"[A-Za-z]\"  class=\"form-control\" placeholder=\""+ doc.name+ "\" id=\"doc_name\" value=\"\" required/><br><input type=\"text\" pattern=\"[A-Za-z]\"  class=\"form-control\" placeholder=\""+ doc. +"\" id=\"travelLocation\"   value=\"\" required><br><input type=\"date\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Departure Date\" id=\"departureDate\"   value=\"\" required><br><input type=\"date\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Return date\" id=\"returnDate\"   value=\"\" required><br><input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Advisor\" id=\"advisor\"  value=\"\" required><br><input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Purpose\" id=\"purpose\"   value=\"\" required></br><input  value=\"Create and Send\" onclick=\"insertTravelAndSend()\" class=\"btn btn-lg btn-success\" style=\"color:white; margin-left:325px; background-color: #0DE832\"><input  value=\"Create\" onclick=\"insertTravel()\" class=\"btn btn-lg btn-success\" style=\"color:white; display:inline-block; margin-left: 20px\"><br></form>");
+                            // }
                     });
 
                     console.log(doc);   
@@ -1250,9 +1028,16 @@
                             student: student,
                             task: task
                         },
-                        function (document) {
-                            console.log(document);
-                            $("#title").text("\t"+document.name);
+                        function (saved) {
+                            console.log(saved);
+                            if (saved.status == 0){
+                                alert("Document updated");
+                                $("#myModal").css("display","none");
+                            }
+                            else{
+                                alert("ERROR: Could not update document!")
+                            }
+                            
                         });
                     }
                     else{
@@ -1262,7 +1047,119 @@
                 }
 
                 function saveAndSendAssistantship(){
-                    alert("Hello");
+                    var doc_id = $("#doc_id").val();
+                    var project = $("#project").val();
+                    var advisor = $("#advisor").val();
+                    var student = $("#student").val();
+                    var task = $("#task").val();
+                    console.log(doc_id);
+                    console.log(project);
+                    console.log(advisor);
+                    console.log(student);
+                    console.log(task);
+                    if (project.length > 0 && advisor.length > 0 && student.length > 0 && task.length >0){
+                        $.getJSON('/_saveAssistantship',{
+                            user_type: 0,
+                            doc_id: doc_id,
+                            project: project,
+                            advisor: advisor,
+                            student: student,
+                            task: task
+                        },
+                        function (saved) {
+                            console.log(saved);
+                            if (saved.status == 0){
+                                alert("Document updated");
+                                $("#myModal").css("display","none");
+                                showSendModal(saved.doc_id);
+                            }
+                            else{
+                                alert("ERROR: Could not update document!")
+                            }
+
+                            
+                        });
+                    }
+                    else{
+                        $("#myModal").css("display","none");
+                    }
+                }
+
+                function saveTravelRequest(){
+                    var doc_id = $("#doc_id").val();
+                    var project = $("#project").val();
+                    var advisor = $("#advisor").val();
+                    var student = $("#student").val();
+                    var task = $("#task").val();
+                    console.log(doc_id);
+                    console.log(project);
+                    console.log(advisor);
+                    console.log(student);
+                    console.log(task);
+                    // if (project.length > 0 && advisor.length > 0 && student.length > 0 && task.length >0){
+                    //     $.getJSON('/_saveAssistantship',{
+                    //         user_type: 0,
+                    //         doc_id: doc_id,
+                    //         project: project,
+                    //         advisor: advisor,
+                    //         student: student,
+                    //         task: task
+                    //     },
+                    //     function (saved) {
+                    //         console.log(saved);
+                    //         if (saved.status == 0){
+                    //             alert("Document updated");
+                    //             $("#myModal").css("display","none");
+                    //         }
+                    //         else{
+                    //             alert("ERROR: Could not update document!")
+                    //         }
+                            
+                    //     });
+                    // }
+                    // else{
+                    //     $("#myModal").css("display","none");
+                    // }
+                    
+                }
+
+                function saveAndSendTravelRequest(){
+                    var doc_id = $("#doc_id").val();
+                    var project = $("#project").val();
+                    var advisor = $("#advisor").val();
+                    var student = $("#student").val();
+                    var task = $("#task").val();
+                    console.log(doc_id);
+                    console.log(project);
+                    console.log(advisor);
+                    console.log(student);
+                    console.log(task);
+                    // if (project.length > 0 && advisor.length > 0 && student.length > 0 && task.length >0){
+                    //     $.getJSON('/_saveAssistantship',{
+                    //         user_type: 0,
+                    //         doc_id: doc_id,
+                    //         project: project,
+                    //         advisor: advisor,
+                    //         student: student,
+                    //         task: task
+                    //     },
+                    //     function (saved) {
+                    //         console.log(saved);
+                    //         if (saved.status == 0){
+                    //             alert("Document updated");
+                    //             $("#myModal").css("display","none");
+                    //             showSendModal(saved.doc_id);
+                    //         }
+                    //         else{
+                    //             alert("ERROR: Could not update document!")
+                    //         }
+
+                            
+                    //     });
+                    // }
+                    // else{
+                    //     $("#myModal").css("display","none");
+                    // }
                 }
 
             </script>

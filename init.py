@@ -297,20 +297,68 @@ def saveAssistantship():
     student   = request.args['student']
     task      = request.args['task']
 
+    saved = {'status':-1}
+
     if int(user_type) == 0:
+        documents = readDB('data/student_documents.json')["documents"]
+        for document in documents:
+            if int(document["id"]) == int(doc_id):
+                doc = document
+        doc["project"] = project
+        doc["advisor"] = advisor
+        doc["student"] = student
+        doc["task"]    = task
+        doc["last_edited"] = "Student: Jessica Cotrina"
+        print "doc", doc
+        updateDB('data/student_documents.json',doc)
+        writeDB('data/document_history.json',doc)
+        saved = {'status':0,'doc_id':doc_id}
 
     if int(user_type) == 1:
+        documents = readDB('data/professor_documents.json')["documents"]
+        for document in documents:
+            if int(document["id"]) == int(doc_id):
+                doc = document
+        doc["project"] = project
+        doc["advisor"] = advisor
+        doc["student"] = student
+        doc["task"]    = task
+        doc["last_edited"] = "Professor: Nestor Rodriguez"
+        updateDB('data/profssor_documents.json',doc)
+        writeDB('data/document_history.json',doc)
+        saved = {'status':0,'doc_id':doc_id}
+
 
     if int(user_type) == 2:
+        documents = readDB('data/assistant_documents.json')["documents"]
+        for document in documents:
+            if int(document["id"]) == int(doc_id):
+                doc = document
+        doc["project"] = project
+        doc["advisor"] = advisor
+        doc["student"] = student
+        doc["task"]    = task
+        doc["last_edited"] = "Assistant: Alida Minguela"
+        updateDB('data/assistant_documents.json',doc)
+        writeDB('data/document_history.json',doc)
+        saved = {'status':0,'doc_id':doc_id}
 
-    if int(user_type) == 3: 
-    
-    print "user_type", user_type
-    print "doc_id", doc_id
-    print "project", project
-    print "advisor", advisor
-    print "student", student
-    print "task", task
+    if int(user_type) == 3:
+        documents = readDB('data/director_documents.json')["documents"]
+        for document in documents:
+            if int(document["id"]) == int(doc_id):
+                doc = document
+        doc["project"] = project
+        doc["advisor"] = advisor
+        doc["student"] = student
+        doc["task"]    = task
+        doc["last_edited"] = "Director: Jessica Cotrina"
+        updateDB('data/director_documents.json',doc)
+        writeDB('data/document_history.json',doc)
+        saved = {'status':0,'doc_id':doc_id}
+
+    return jsonify(saved)
+
 
 @app.route('/_getStudentAssistantships')
 def get_StudentAssistantships():
@@ -404,7 +452,7 @@ def get_AssistantTravelRequests():
     return jsonify(new_documents)
 
 @app.route('/_getDirectorTravelRequests')
-def get_DirectorrTravelRequests():
+def get_DirectorTravelRequests():
     print "Entre"
     documents = readDB('data/director_documents.json')["documents"]
     new_documents = {"documents":[]}
@@ -554,10 +602,10 @@ def sendAndSaveDocument():
 
 @app.route("/doc_info",methods=['GET'])
 def getDocumentInfo():
-    document_name = request.args['name']
+    document_name = request.args['doc_id']
     documents = readDB('data/document_history.json')['documents']
     for document in documents:
-        if document["name"] == document_name:
+        if int(document["id"]) == int(document_name):
             doc = document
     return render_template("doc_info.html",document_id=doc["id"])
 
