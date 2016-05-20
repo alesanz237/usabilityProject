@@ -1,0 +1,9 @@
+{"users":
+    [
+        {"id": 0, "email":"jessica.cotrina@upr.edu","first":"Jessica","last":"Cotrina","type":0,"password":"student"},
+        {"id":1,"email":"nestor.rodriguez@upr.edu","first":"Nestor","last":"Rodriguez","type":1,"password":"professor"},
+        {"id":2,"email":"alida.minguela@upr.edu","first":"Alida","last":"Minguela","type":2,"password":"assistant"},
+        {"id":3,"email":"jose.colom@upr.edu","first":"Jose","last":"Colom","type":3,"password":"director"}  
+    ]
+}
+    
