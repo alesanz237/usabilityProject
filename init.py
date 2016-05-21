@@ -317,12 +317,12 @@ def insertTravelRequest():
         document["faculty"] = "Electrical Engineering"
         document["major"] = "computer Engineering"
         document["progress"] = 0
-        document["advisor"] = advisor
+        document["advisor"] = "Assistant: Alida Minguela"
         document["travel_location"] = travel_location
         document["departure_date"] = departure_date
         document["return_date"] = return_date
         document["purpose"] = purpose
-        document["requester"] =  "Assistant: Alida Minguela"
+        document["requester"] =  advisor
         document["sent_status"] = ""
         document["last_edited"] = "Assistant: Alida Minguela"
         print document
