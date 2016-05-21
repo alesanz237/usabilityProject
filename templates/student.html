@@ -188,6 +188,7 @@
                     </div>
                 </div>
             </div>
+            <!-- <button onclick="showSendModal(452349816)">Send</button> -->
             <script>
 
                 // Global variables
@@ -753,7 +754,32 @@
                         });
 
 
-                    $('#modal_body').append("<form role=\"form\"><div class=\"form-group\"><label>Document:</label><span id=\"title\"></span></div><div class=\"form-group\"><label>To:</label><input type=\"email\" id=\"email\" class=\"form-control\" placeholder=\"Email\"></div><div class=\"form-group\"><label>Message:</label><textarea id=\"message\" class=\"form-control\" rows=\"3\"></textarea></div><div \"alert alert-success\"><input id=\"doc_id\" type=\"hidden\" value=\""+doc_id+"\"/><input id=\"1\" type=\"button\" value=\"Send\" class=\"btn btn-success\"  onclick=\"send();\"/></div></form>");
+                    $('#modal_body').append("<form role=\"form\">"+
+                        "<div class=\"form-group\">"+
+                            "<label>Document:</label>"+
+                                "<span id=\"title\"></span>"+
+                        "</div>" + 
+                        "<div class=\"form-group\">"+
+                            "<label>To:</label>"+
+                            "<input type=\"email\" id=\"email\" class=\"form-control\" placeholder=\"Email\">"+
+                        "</div>"+
+                        "<div class=\"form-group\">"+
+                            "<label>Action:</label>"+
+                            "<select id=\"action\">" +
+                                "<option value=\"authorize\">Authorize</option>"+
+                                "<option value=\"verify\">Verify</option>"+
+                            "</select>" +
+                        "</div>"+
+                        "<div class=\"form-group\">"+
+                            "<label>Message:</label>"+
+                            "<textarea id=\"message\" class=\"form-control\" rows=\"3\"></textarea>"+
+                        "</div>"+
+                        
+                        "<div \"alert alert-success\">"+ 
+                            "<input id=\"doc_id\" type=\"hidden\" value=\""+doc_id+"\"/>"+
+                            "<input id=\"1\" type=\"button\" value=\"Send\" class=\"btn btn-success\"  onclick=\"send();\" style=\"margin-left:730px;\"/>"+
+                        "</div>"+
+                        "</form>");
                 }
 
                 function showEditDocumentModal(doc_id){
@@ -926,12 +952,14 @@
                 }
 
                 function send() {
-                    var email = $("#email").val()
-                    var message = $("#message").val()
-                    var doc_id = $('#doc_id').val()
+                    var email = $("#email").val();
+                    var message = $("#message").val();
+                    var doc_id = $('#doc_id').val();
+                    var action  = $('#action option:selected').text(); 
                     console.log(email);
                     console.log(message);
-                    console.log(doc_id)
+                    console.log(doc_id);
+                    console.log(action);
                     if (email == "nestor.rodriguez@upr.edu" || email == "alida.minguela@upr.edu" || email == "jose.colom@upr.edu"){
 
                         // Student sending document case
@@ -940,7 +968,8 @@
                                 { doc_id: doc_id,
                                   user_type: 0,
                                   sent_to: email,
-                                  message: message
+                                  message: message,
+                                  action: action
                                 },
                                 function (sent) {
                                     console.log(sent)
@@ -961,7 +990,8 @@
                                 { doc_id: doc_id,
                                   user_type: 0,
                                   sent_to: email,
-                                  message: message
+                                  message: message,
+                                  action: action
                                 },
                                 function (sent) {
                                     console.log(sent)
@@ -981,7 +1011,8 @@
                                 { doc_id: doc_id,
                                   user_type: 0,
                                   sent_to: email,
-                                  message: message
+                                  message: message,
+                                  action: action
                                 },
                                 function (sent) {
                                     console.log(sent)

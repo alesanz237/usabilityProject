@@ -491,6 +491,7 @@ def sendAndSaveDocument():
     user_type = request.args['user_type']
     sent_to = request.args['sent_to']
     message = request.args['message']
+    action = request.args['action']
     sent = {'status':-1}
     print doc_id, user_type, sent_to, sent
 
@@ -511,6 +512,7 @@ def sendAndSaveDocument():
         document["sent_status"] = "sent"
         document["last_edited"] = "Student: Jessica Cotrina"
         document["message"] = message
+        document["action"]  = action
         updateDB('data/student_documents.json',document)
 
     # If document is being sent by professor 
@@ -530,6 +532,7 @@ def sendAndSaveDocument():
         document["sent_status"] = "sent"
         document["last_edited"] = "Professor: Nestor Rodriguez"
         document["message"] = message
+        document["action"]  = action
         updateDB('data/professor_documents.json',document)
 
     # If document is being sent by assistant
@@ -549,6 +552,7 @@ def sendAndSaveDocument():
         document["sent_status"] = "sent"
         document["last_edited"] = "Assistant: Alida Minguela"
         document["message"] = message
+        document["action"]  = action
         updateDB('data/assistant_documents.json',document)
 
     # If document is being sent by director 
@@ -568,6 +572,7 @@ def sendAndSaveDocument():
         document["sent_status"] = "sent"
         document["last_edited"] = "Director: Jose Colom"
         document["message"] = message
+        document["action"]  = action
         updateDB('data/director_documents.json',document)
 
     # If document being sent to professor
@@ -602,10 +607,10 @@ def sendAndSaveDocument():
 
 @app.route("/doc_info",methods=['GET'])
 def getDocumentInfo():
-    document_name = request.args['doc_id']
+    doc_id = request.args['id']
     documents = readDB('data/document_history.json')['documents']
     for document in documents:
-        if int(document["id"]) == int(document_name):
+        if int(document["id"]) == int(doc_id):
             doc = document
     return render_template("doc_info.html",document_id=doc["id"])
 
