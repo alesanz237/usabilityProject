@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, render_template, request
 from db import readDB, writeDB, updateDB
 import random
+import time
 app = Flask(__name__)
 
 @app.route('/_validateUser')
@@ -96,7 +97,7 @@ def insertAssistantship():
         document["id"] = doc_id
         document["name"] = name
         document["type"] = "Assistantship Request"
-        document["date"] = "Today"
+        document["date"] = (time.strftime("%d/%m/%Y %H:%M:%S"))
         document["status"] = "Created"
         document["faculty"] = "Electrical Engineering"
         document["major"] = "computer Engineering"
@@ -117,7 +118,7 @@ def insertAssistantship():
         document["id"] = doc_id
         document["name"] = name
         document["type"] = "Assistantship Request"
-        document["date"] = "Today"
+        document["date"] = (time.strftime("%d/%m/%Y %H:%M:%S"))
         document["status"] = "Created"
         document["faculty"] = "Electrical Engineering"
         document["major"] = "computer Engineering"
@@ -138,7 +139,7 @@ def insertAssistantship():
         document["id"] = doc_id
         document["name"] = name
         document["type"] = "Assistantship Request"
-        document["date"] = "Today"
+        document["date"] = (time.strftime("%d/%m/%Y %H:%M:%S"))
         document["status"] = "Created"
         document["faculty"] = "Electrical Engineering"
         document["major"] = "computer Engineering"
@@ -159,7 +160,7 @@ def insertAssistantship():
         document["id"] = doc_id
         document["name"] = name
         document["type"] = "Assistantship Request"
-        document["date"] = "Today"
+        document["date"] = (time.strftime("%d/%m/%Y %H:%M:%S"))
         document["status"] = "Created"
         document["faculty"] = "Electrical Engineering"
         document["major"] = "computer Engineering"
@@ -201,7 +202,7 @@ def insertTravelRequest():
         document["id"] = doc_id
         document["name"] = conference_name + " Travel Request"
         document["type"] = "Travel Request"
-        document["date"] = "Today"
+        document["date"] = (time.strftime("%d/%m/%Y %H:%M:%S"))
         document["status"] = "Created"
         document["faculty"] = "Electrical Engineering"
         document["major"] = "computer Engineering"
@@ -224,7 +225,7 @@ def insertTravelRequest():
         document["id"] = doc_id
         document["name"] = conference_name + " Travel Request"
         document["type"] = "Travel Request"
-        document["date"] = "Today"
+        document["date"] = (time.strftime("%d/%m/%Y %H:%M:%S"))
         document["status"] = "Created"
         document["faculty"] = "Electrical Engineering"
         document["major"] = "computer Engineering"
@@ -246,7 +247,7 @@ def insertTravelRequest():
         document["id"] = doc_id
         document["name"] = conference_name + " Travel Request"
         document["type"] = "Travel Request"
-        document["date"] = "Today"
+        document["date"] = (time.strftime("%d/%m/%Y %H:%M:%S"))
         document["status"] = "Created"
         document["faculty"] = "Electrical Engineering"
         document["major"] = "computer Engineering"
@@ -268,7 +269,7 @@ def insertTravelRequest():
         document["id"] = doc_id
         document["name"] = conference_name + " Travel Request"
         document["type"] = "Travel Request"
-        document["date"] = "Today"
+        document["date"] = (time.strftime("%d/%m/%Y %H:%M:%S"))
         document["status"] = "Created"
         document["faculty"] = "Electrical Engineering"
         document["major"] = "computer Engineering"
