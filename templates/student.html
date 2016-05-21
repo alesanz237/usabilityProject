@@ -719,7 +719,7 @@
                     $('#documents_sent_button').css("display","none");
                     $("#modal_title").text('New Assistantship Request');
                     $('#modal_body').empty();
-                    $('#modal_body').append(" <p>Student Name: Jessica Cotrina Revilla</p><p>Student Number: 502-15-6168</p><p>Department: Electrical Engineering</p><p>Major: Computer Engineering</p><form> <input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Advisor\" id=\"advisor\"   value=\"\" required> <br>  <input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Project/Class\" id=\"project\"  value=\"\" required> <br> <input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Task\" id=\"task\"   value=\"\" required> <br> <select id=\"type\" class=\"form-control\"> <option value=\"research\">Research</option> <option value=\"ta\">TA</option> </select></br> <input  value=\"Create and Send\" onclick=\"insertAssistantshipAndSend()\" class=\"btn btn-lg btn-success\" style=\"color:white; margin-left:325px; background-color: #0DE832\"><input  value=\"Create\" onclick=\"insertAssistantship()\" class=\"btn btn-lg btn-success\" style=\"color:white; display:inline-block; margin-left: 20px\"><br></form>");
+                    $('#modal_body').append(" <p>Student Name: Jessica Cotrina Revilla</p><p>Student Number: 502-15-6168</p><p>Department: Electrical Engineering</p><p>Major: Computer Engineering</p><form> <input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Advisor\" id=\"advisor\"   value=\"\" required> <br>  <input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Project/Class\" id=\"project\"  value=\"\" required> <br> <input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Task\" id=\"task\"   value=\"\" required> <br> <select id=\"type\" class=\"form-control\"> <option value=\"research\">Research</option> <option value=\"ta\">TA</option> </select></br> <input  value=\"Create and Send\" onclick=\"insertAssistantshipAndSend()\" class=\"btn btn-lg btn-success\" style=\"color:white; margin-left:570px; background-color: #5CB85C\"><br></form>");
                 }
 
                 function showTravelModal(){
@@ -729,7 +729,7 @@
                     $('#documents_sent_button').css("display","none");
                     $("#modal_title").text('New Travel Request');
                     $('#modal_body').empty();
-                    $('#modal_body').append("<p>Student Name: Jessica Cotrina Revilla</p><p>Student Number: 502-15-6168</p><p>Department: Electrical Engineering</p><p>Major: Computer Engineering</p><form><input type=\"text\" pattern=\"[A-Za-z]\"  class=\"form-control\" placeholder=\"Conference name\" id=\"name\"   value=\"\" required><br><input type=\"text\" pattern=\"[A-Za-z]\"  class=\"form-control\" placeholder=\"Travel Location\" id=\"travelLocation\"   value=\"\" required><br><input type=\"date\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Departure Date\" id=\"departureDate\"   value=\"\" required><br><input type=\"date\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Return date\" id=\"returnDate\"   value=\"\" required><br><input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Advisor\" id=\"advisor\"  value=\"\" required><br><input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Purpose\" id=\"purpose\"   value=\"\" required></br><input  value=\"Create and Send\" onclick=\"insertTravelAndSend()\" class=\"btn btn-lg btn-success\" style=\"color:white; margin-left:325px; background-color: #0DE832\"><input  value=\"Create\" onclick=\"insertTravel()\" class=\"btn btn-lg btn-success\" style=\"color:white; display:inline-block; margin-left: 20px\"><br></form>");
+                    $('#modal_body').append("<p>Student Name: Jessica Cotrina Revilla</p><p>Student Number: 502-15-6168</p><p>Department: Electrical Engineering</p><p>Major: Computer Engineering</p><form><input type=\"text\" pattern=\"[A-Za-z]\"  class=\"form-control\" placeholder=\"Conference name\" id=\"name\"   value=\"\" required><br><input type=\"text\" pattern=\"[A-Za-z]\"  class=\"form-control\" placeholder=\"Travel Location\" id=\"travelLocation\"   value=\"\" required><br><input type=\"date\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Departure Date\" id=\"departureDate\"   value=\"\" required><br><input type=\"date\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Return date\" id=\"returnDate\"   value=\"\" required><br><input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Advisor\" id=\"advisor\"  value=\"\" required><br><input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Purpose\" id=\"purpose\"   value=\"\" required></br><input  value=\"Create and Send\" onclick=\"insertTravelAndSend()\" class=\"btn btn-lg btn-success\" style=\"color:white; margin-left:570px; background-color: #5CB85C\"><br></form>");
                 }
 
                 function showSendModal(doc_id){
@@ -1116,83 +1116,6 @@
                     else{
                         $("#myModal").css("display","none");
                     }
-                }
-
-                function saveTravelRequest(){
-                    var doc_id = $("#doc_id").val();
-                    var project = $("#project").val();
-                    var advisor = $("#advisor").val();
-                    var student = $("#student").val();
-                    var task = $("#task").val();
-                    console.log(doc_id);
-                    console.log(project);
-                    console.log(advisor);
-                    console.log(student);
-                    console.log(task);
-                    // if (project.length > 0 && advisor.length > 0 && student.length > 0 && task.length >0){
-                    //     $.getJSON('/_saveAssistantship',{
-                    //         user_type: 0,
-                    //         doc_id: doc_id,
-                    //         project: project,
-                    //         advisor: advisor,
-                    //         student: student,
-                    //         task: task
-                    //     },
-                    //     function (saved) {
-                    //         console.log(saved);
-                    //         if (saved.status == 0){
-                    //             alert("Document updated");
-                    //             $("#myModal").css("display","none");
-                    //         }
-                    //         else{
-                    //             alert("ERROR: Could not update document!")
-                    //         }
-                            
-                    //     });
-                    // }
-                    // else{
-                    //     $("#myModal").css("display","none");
-                    // }
-                    
-                }
-
-                function saveAndSendTravelRequest(){
-                    var doc_id = $("#doc_id").val();
-                    var project = $("#project").val();
-                    var advisor = $("#advisor").val();
-                    var student = $("#student").val();
-                    var task = $("#task").val();
-                    console.log(doc_id);
-                    console.log(project);
-                    console.log(advisor);
-                    console.log(student);
-                    console.log(task);
-                    // if (project.length > 0 && advisor.length > 0 && student.length > 0 && task.length >0){
-                    //     $.getJSON('/_saveAssistantship',{
-                    //         user_type: 0,
-                    //         doc_id: doc_id,
-                    //         project: project,
-                    //         advisor: advisor,
-                    //         student: student,
-                    //         task: task
-                    //     },
-                    //     function (saved) {
-                    //         console.log(saved);
-                    //         if (saved.status == 0){
-                    //             alert("Document updated");
-                    //             $("#myModal").css("display","none");
-                    //             showSendModal(saved.doc_id);
-                    //         }
-                    //         else{
-                    //             alert("ERROR: Could not update document!")
-                    //         }
-
-                            
-                    //     });
-                    // }
-                    // else{
-                    //     $("#myModal").css("display","none");
-                    // }
                 }
 
             </script>

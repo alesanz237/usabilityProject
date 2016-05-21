@@ -108,6 +108,8 @@ def insertAssistantship():
         document["student"] = student
         document["requester"] = "Student: Jessica Cotrina"
         document["sent_status"] = ""
+        document["last_edited"] = "Student: Jessica Cotrina"
+        document["student_number"] = "502-15-6168"
         print document
         writeDB('data/student_documents.json',document)
         writeDB('data/document_history.json',document)
@@ -129,6 +131,7 @@ def insertAssistantship():
         document["student"] = student
         document["requester"] = "Professor: Nestor Rodriguez"
         document["sent_status"] = ""
+        document["last_edited"] = "Professor: Nestor Rodriguez"
         print document
         writeDB('data/professor_documents.json',document)
         writeDB('data/document_history.json',document)
@@ -150,6 +153,7 @@ def insertAssistantship():
         document["student"] = student
         document["requester"] = "Assistant: Alida Minguela"
         document["sent_status"] = ""
+        document["last_edited"] = "Assistant: Alida Minguela"
         print document
         writeDB('data/assistant_documents.json',document)
         writeDB('data/document_history.json',document)
@@ -171,10 +175,69 @@ def insertAssistantship():
         document["student"] = student
         document["requester"] = "Director: Jose Colom"
         document["sent_status"] = ""
+        docucment["last_edited"] = "Director Jose Colom"
         print document
         writeDB('data/director_documents.json',document)
         writeDB('data/document_history.json',document)
         inserted = {'status':0,'id':doc_id,'name':name}
+
+    return jsonify(inserted)
+
+@app.route('/_insertAssistantAssistantship')
+def insertAssistantAssistantship():
+    
+    user_type = request.args['user_type']
+    advisor = request.args['advisor']
+    project = request.args['project']
+    task = request.args['task']
+    assistantship_type = request.args['a_type']
+    student = request.args['student']
+    student_number = request.args['student_number']
+    department = request.args['department']
+    major = request.args['major']
+
+    print "user_type", user_type
+    print "advisor", advisor
+    print "project", project
+    print "task", task
+    print "assistantship_type", assistantship_type
+    print "student", student
+    print "student_number", student_number
+    print "department", department
+    print "major", major
+
+    # student:   student
+    inserted = {'status':-1}
+    # Setting values for document to be inserted
+    doc_id = random.randint(1, 999999999)  
+    if assistantship_type == "Research":
+        name = "2016 Research Assistantship Request"
+    else:
+        name = "2016 TA Assistantship Request"
+    # If document is being sent by student
+    
+    document = {}
+    document["id"] = doc_id
+    document["name"] = name
+    document["type"] = "Assistantship Request"
+    document["date"] = (time.strftime("%d/%m/%Y %H:%M:%S"))
+    document["status"] = "Created"
+    document["faculty"] = department
+    document["major"] = major
+    document["progress"] = 0
+    document["advisor"] = advisor
+    document["project"] = project
+    document["task"] = task
+    document["student"] = student
+    document["requester"] = "Assistant: Alida Minguela"
+    document["sent_status"] = ""
+    document["last_edited"] = "Assistant: Alida Minguela"
+    document["student number"] = student_number
+    print document
+    writeDB('data/assistant_documents.json',document)
+    writeDB('data/document_history.json',document)
+    inserted = {'status':0,'id':doc_id,'name':name}
+
 
     return jsonify(inserted)
 
@@ -214,6 +277,7 @@ def insertTravelRequest():
         document["purpose"] = purpose
         document["requester"] = "Student: Jessica Cotrina"
         document["sent_status"] = ""
+        document["last_edited"] = "Student: Jessica Cotrina"
         print document
         writeDB('data/student_documents.json',document)
         writeDB('data/document_history.json',document)
@@ -237,6 +301,7 @@ def insertTravelRequest():
         document["purpose"] = purpose
         document["requester"] = "Professor: Nestor Rodriguez"
         document["sent_status"] = ""
+        document["last_edited"] = "Professor: Nestor Rodriguez"
         print document
         writeDB('data/professor_documents.json',document)
         writeDB('data/document_history.json',document)
@@ -257,8 +322,9 @@ def insertTravelRequest():
         document["departure_date"] = departure_date
         document["return_date"] = return_date
         document["purpose"] = purpose
-        document["requester"] = requester
+        document["requester"] =  "Assistant: Alida Minguela"
         document["sent_status"] = ""
+        document["last_edited"] = "Assistant: Alida Minguela"
         print document
         writeDB('data/assistant_documents.json',document)
         writeDB('data/document_history.json',document)
@@ -279,8 +345,9 @@ def insertTravelRequest():
         document["departure_date"] = departure_date
         document["return_date"] = return_date
         document["purpose"] = purpose
-        document["requester"] = requester
+        document["requester"] = "Director: Jose Colom"
         document["sent_status"] = ""
+        document["last_edited"] = "Director: Jose Colom"
         print document
         writeDB('data/director_documents.json',document)
         writeDB('data/document_history.json',document)
@@ -494,7 +561,7 @@ def sendAndSaveDocument():
     message = request.args['message']
     action = request.args['action']
     sent = {'status':-1}
-    print doc_id, user_type, sent_to, sent
+    print doc_id, user_type, sent_to, sent, action
 
     # If document is being sent by student
     if int(user_type) == 0:
