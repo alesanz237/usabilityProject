@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,83 +32,9 @@
     <!-- jQuery -->
     <script src="../static/bower_components/jquery/dist/jquery.min.js"></script>
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- <style>
-    /* The Modal (background) */
-    .modal {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
-        padding-top: 100px; /* Location of the box */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    }
+    <!-- Modal Style -->
+    <link rel="stylesheet" href="static/css/modal.css">
 
-    /* Modal Content */
-    .modal-content {
-        position: relative;
-        background-color: #fefefe;
-        margin: auto;
-        padding: 0;
-        border: 1px solid #888;
-        width: 80%;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-        -webkit-animation-name: animatetop;
-        -webkit-animation-duration: 0.4s;
-        animation-name: animatetop;
-        animation-duration: 0.4s
-    }
-
-    /* Add Animation */
-    @-webkit-keyframes animatetop {
-        from {top:-300px; opacity:0} 
-        to {top:0; opacity:1}
-    }
-
-    @keyframes animatetop {
-        from {top:-300px; opacity:0}
-        to {top:0; opacity:1}
-    }
-
-    /* The Close Button */
-    .close {
-        color: white;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-        color: #000;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-    .modal-header {
-        padding: 2px 16px;
-        background-color: #5cb85c;
-        color: white;
-    }
-
-    .modal-body {padding: 2px 16px;}
-
-    .modal-footer {
-        padding: 2px 16px;
-        background-color: #5cb85c;
-        color: white;
-    }
-    </style> -->
 </head>
 
 <body>
@@ -157,7 +81,7 @@
 
             <!-- The Modal -->
             <div class="row">
-                <div id="myModal" class="modal" style="margin-left: 251px; width:1030px;">
+                <div id="myModal" class="modal" style="">
 
                   <!-- Modal content -->
                   <div class="modal-content">
@@ -179,8 +103,16 @@
             <!-- /.row -->
              <!-- /.panel-heading -->
             <h4>Sent by <small id="sendee">Sender</small></h4>
-            <h4>Action Required <small id="doc_action">Action</small></h4>
+            <h4>Action Required 
+                <button id="action_button" class="btn btn-success" onclick="showSendModal()">
+                    <span id="action_title"></span>
+                </button>
+                <small><span id="title_action"></span></small><input id="checkbox_type" type="checkbox" value=""><br>
+            </h4>
             <h4>Message <small id="doc_message">Message</small></h4>
+            <button id="action_button2" class="btn btn-success" >
+                <span id="action_title2"></span>
+            </button>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -190,8 +122,32 @@
                             </div>
                             <div class="panel-body">
                                 <div class="dataTable_wrapper" id="panel_content">
-                                    <label>Name:</label><span> name</span>
-                                    
+                                    <label>Name:</label><span id="name"> name</span>
+                                    <br>
+                                     <label>Requester: </label><span id="requester">Request</span>
+                                    <br>
+                                    <label>Faculty:</label><span id="faculty">Faculty</span>
+                                    <br>
+                                    <label>Major:</label><span id="major">Major</span>
+                                    <br>
+                                    <label>Status: </label><span id="status">Status</span>
+                                    <br>
+                                    <label>Request Type: </label><span id="type">Type Request</span>
+                                    <br>
+                                    <label id="lbadvisor">Advisor:</label><span id="advisor"> Advisor</span>
+                                    <br>
+                                    <label id="lbdeparture_date">Departure Date: </label><span id="departure_date">Departure Date</span>
+                                    <br>
+                                    <label id="lbreturn_date">Return Date: </label><span id="return_date">Return Date</span>
+                                    <br>
+                                    <label id="lbpurpose">Purpose: </label><span style="padding-left:47px;" id="purpose"></span>
+                                    <br>
+                                    <label id="lbtTravelLocation">Travel Location: </label><span id="travel_Location"></span>
+                                    <br>
+
+
+
+
                                 </div>
                             </div>
                         </div>
@@ -214,9 +170,22 @@
                                             // Global variables
                                             var table = document.getElementById("document_table");
                                             var header = table.createTHead();
+                                            var global_action = ""
                                             
                                             var doc_id = '{{document_id}}';
                                             console.log(doc_id);
+
+                                            $('#action_button2').css("display","none");
+
+                                            $('#checkbox_type').change(function(){
+                                                var checked = $( "input:checked" ).length; // 0 = unchecked, 1 = check
+                                                if (checked == 1){
+                                                    $('#action_button2').css("display","block");
+                                                }
+                                                else{
+                                                    $('#action_button2').css("display","none");
+                                                }
+                                            });
 
                                             // Inserting table header
                                             function insertTableHeaders() {
@@ -237,30 +206,501 @@
                                                     document_id: doc_id
                                                 },
                                                 function (doc) {
+                                                    
                                                     insertTableHeaders();
                                                     console.log(doc["history"]);
-                                                    var doc_info = doc["history"]
-                                                    $('#title').text(doc_info[0].name);
-                                                    for (var i = 0; i < doc_info.length; i++){
+                                                    var doc_info = doc["history"][0]
+                                                    index = doc["history"].length - 1;
+                                                    var last_doc = doc["history"][index]
+                                                    console.log(last_doc);
+                                                    $('#title').text(doc_info.name);
+                                                    var faculty = doc_info.faculty;
+                                                    var major = doc_info.major;
+                                                    var requester = doc_info.requester;
+                                                    console.log(requester);
+                                                    var advisor = doc_info.advisor;
+                                                    var action = doc_info.action;
+                                                    var message = last_doc.message;
+                                                    console.log(message);
+                                                    var name = doc_info.name;
+                                                    var departure_date = doc_info.departure_date;
+                                                    var return_date = doc_info.return_date;
+                                                    var purpose = doc_info.purpose;
+                                                    var status = doc_info.status;
+                                                    var type = doc_info.type;
+                                                    var travel_location = doc_info.travel_location;
+                                                    
+                                                    // Inserting for Travel Request
+                                                    $('#faculty').text("\t"+faculty);
+                                                    $('#major').text("\t"+major);
+                                                    $('#requester').text("\t"+requester);
+                                                    $('#sendee').text("\t"+advisor);
+                                                    $('#action').text("\t"+action);
+                                                    $('#doc_message').text("\t"+message);
+                                                    $('#name').text("\t"+name);
+                                                    $('#advisor').text("\t"+advisor);
+                                                    $('#departure_date').text("\t"+return_date);
+                                                    $('#return_date').text("\t"+departure_date);
+                                                    $('#purpose').text("\t"+purpose);
+                                                    $('#status').text("\t"+status);
+                                                    $('#type').text("\t"+type);
+                                                    $('#travel_Location').text("\t"+travel_location);
+
+                                                    // Inserting for Assistantship Request
+                                                    if (doc_info.type == "Assistantship Request"){
+                                                        $("#departure_date").css("display","none");
+                                                        $("#lbdeparture_date").css("display","none");
+                                                        $("#return_date").css("display","none");
+                                                        $("#lbreturn_date").css("display","none");
+                                                        $("#purpose").css("display","none");
+                                                        $("#lbpurpose").css("display","none");
+                                                        $("#travel_Location").css("display","none");
+                                                        $("#lbtTravelLocation").css("display","none");
+                                                    }
+                                                    
+                                                    // Changing buttons based on action
+                                                    
+                                                    console.log(doc_info.action);
+                                                    // console.log(typeof(doc_info.action) !=-1);
+                                                    var user_type = 0;
+                                                    if (doc_info.last_edited.indexOf("Student") !=-1 && doc["history"].length == 1){
+                                                        user_type = 0;
+                                                    }
+                                                    else if (doc_info.last_edited.indexOf("Professor") !=-1 && doc["history"].length == 1){
+                                                        console.log("Entre a Professor");
+                                                        user_type = 1;
+                                                    }
+                                                    else if (doc_info.last_edited.indexOf("Assistant") !=-1 && doc["history"].length == 1){
+                                                        console.log("Entre a Assistant");
+                                                        user_type = 2;
+                                                    }
+                                                    else if (doc_info.last_edited.indexOf("Director") !=-1 && doc["history"].length == 1){
+                                                        console.log("Entre a Director");
+                                                        user_type = 3;
+                                                    }
+                                                    console.log(user_type);
+                                                    if (doc_info.status == "Created" && doc["history"].length == 1){
+                                                        $('#action_title').text("Send");
+                                                        $('#action_button').attr("onclick","showSendModal("+doc_info.id+","+user_type+")");
+                                                    }
+                                                    if (last_doc.action == "Endose"){
+                                                        $('#action_title').text("Endose");
+                                                        $('#action_button').css("display","none");
+                                                        $('#action_button').attr("value","verified");
+                                                        $('#action_button2').attr("onclick","showSendActionModal("+doc_info.id+","+user_type+",\"Endorsed\")");
+                                                        $('#action_title2').text("Send");
+                                                        global_action = "endosed";
+
+                                                    }
+                                                    if (last_doc.action == "Sign"){
+                                                        $('#action_title').text("Sign");
+                                                        $('#action_button').css("display","none");
+                                                        $('#action_button').attr("value","verified");
+                                                        $('#action_button2').attr("onclick","showSendActionModal("+doc_info.id+","+user_type+",\"Signed\")");
+                                                        $('#action_title2').text("Send");
+                                                        global_action = "signed";
+                                                    }
+                                                    if (last_doc.action == "Authorize"){
+                                                        $('#action_title').text("Authorize");
+                                                        $('#action_button').css("display","none");
+                                                        $('#action_button').attr("value","verified");
+                                                        $('#action_button2').attr("onclick","showSendActionModal("+doc_info.id+","+user_type+",\"Authorized\")");
+                                                        $('#action_title2').text("Send");
+                                                        global_action = "authorized";
+                                                    }
+                                                    if (last_doc.action == "Verify"){
+                                                        $('#title_action').text("Verify ");
+                                                        $('#action_button').css("display","none");
+                                                        $('#action_button').attr("value","verified");
+                                                        $('#action_button2').attr("onclick","showSendActionModal("+doc_info.id+","+user_type+",\"Verified\")");
+                                                        $('#action_title2').text("Send");
+                                                        global_action = "verified";
+                                                    }
+                                                        
+                                                
+                                                    // Inserting Document history
+                                                    for (var i = 0; i < doc["history"].length; i++){
                                                         // console.log(the_documents[i]);
                                                         // doc = the_documents[i]
                                                         var row = header.insertRow(i+1);
                                                         for (var j = 0; j < 3; j++){
                                                             var cell = row.insertCell(j);
                                                             if (j == 0){
-                                                                cell.innerHTML = doc_info[i].status
+                                                                cell.innerHTML = doc["history"][i].status
                                                             }
                                                             if (j == 1){
-                                                                cell.innerHTML = doc_info[i].date
+                                                                cell.innerHTML = doc["history"][i].date
                                                             }
                                                             if (j == 2){
-                                                                cell.innerHTML = doc_info[i].last_edited
+                                                                cell.innerHTML = doc["history"][i].last_edited
                                                             }
                                                             
                                                         }
                                                     }
                                             });
-                                        </script>
+
+                                            function showSendModal(doc_id,user_type){
+                                                $('#myModal').css("display","block");
+                                                $("#modal_title").text('Send Document');
+                                                $('#modal_body').empty();
+
+                                                console.log(doc_id);
+                                                // console.log(doc_name);
+                                                console.log(user_type);
+
+                                                $.getJSON('/_getDocument',{
+                                                        user_type: user_type,
+                                                        doc_id: doc_id
+                                                    },
+                                                    function (document) {
+                                                        console.log(document);
+                                                        $("#m_title").text("\t"+document.name);
+                                                    });
+
+                                                console.log(user_type);
+
+                                                $('#modal_body').append("<form role=\"form\">"+
+                                                    "<div class=\"form-group\"> <br>"+
+                                                        "<label>Document:</label>"+
+                                                            "<span id=\"m_title\"></span>"+
+                                                    "</div>" + 
+                                                    "<div class=\"form-group\">"+
+                                                        "<label>To:</label>"+
+                                                        "<input type=\"email\" id=\"email\" class=\"form-control\" placeholder=\"Email\">"+
+                                                    "</div>"+
+                                                    "<div class=\"form-group\">"+
+                                                        "<label>Action:</label>"+
+                                                        "<select id=\"action\">" +
+                                                            "<option value=\"authorize\">Authorize</option>"+
+                                                            "<option value=\"verify\">Verify</option>"+
+                                                            "<option value=\"sign\">Sign</option>"+
+                                                            "<option value=\"endose\">Endose</option>"+
+                                                        "</select>" +
+                                                    "</div>"+
+                                                    "<div class=\"form-group\">"+
+                                                        "<label>Message:</label>"+
+                                                        "<textarea id=\"message\" class=\"form-control\" rows=\"3\"></textarea>"+
+                                                    "</div>"+
+                                                    
+                                                    "<div \"alert alert-success\">"+ 
+                                                        "<input id=\"doc_id\" type=\"hidden\" value=\""+doc_id+"\"/>"+
+                                                        "<input id=\"doc_user_type\" type=\"hidden\" value=\""+user_type+"\"/>"+
+                                                        "<input id=\"1\" type=\"button\" value=\"Send\" class=\"btn btn-success\"  onclick=\"send();\" style=\"margin-left:930px;\"/>"+
+                                                    "</div>"+
+                                                    "</form>");
+                                            } 
+
+                                            function showSendActionModal(doc_id,user_type,action){
+                                                $('#myModal').css("display","block");
+                                                $("#modal_title").text('Send Document');
+                                                $('#modal_body').empty();
+                                                var checked = $( "input:checked" ).length; // 0 = unchecked, 1 = check
+                                                console.log(checked);
+                                                console.log(doc_id);
+                                                // console.log(doc_name);
+                                                console.log(user_type);
+                                                
+                                                $.getJSON('/_getDocument',{
+                                                        user_type: user_type,
+                                                        doc_id: doc_id
+                                                    },
+                                                    function (document) {
+                                                        console.log(document);
+                                                        $("#m_title").text("\t"+document.name);
+                                                    });
+
+                                                console.log(user_type);
+
+                                                if (action == "Verified"){
+                                                    var send_action = "verified";
+                                                }
+
+                                                $('#modal_body').append("<form role=\"form\">"+
+                                                    "<div class=\"form-group\"> <br>"+
+                                                        "<label>Document:</label>"+
+                                                            "<span id=\"m_title\"></span>"+
+                                                    "</div>" + 
+                                                    "<div class=\"form-group\">"+
+                                                        "<label>To:</label>"+
+                                                        "<input type=\"email\" id=\"email\" class=\"form-control\" placeholder=\"Email\">"+
+                                                    "</div>"+
+                                                    "<div class=\"form-group\">"+
+                                                        "<label>Action Performed:"+ 
+
+                                                        "</label>"+
+                                                        "<p>"+action+" Document</p>"+
+                                                    "</div>"+
+                                                    "<div class=\"form-group\">"+
+                                                        "<label>Message:</label>"+
+                                                        "<textarea id=\"message\" class=\"form-control\" rows=\"3\"></textarea>"+
+                                                    "</div>"+
+                                                    
+                                                    "<div \"alert alert-success\">"+ 
+                                                        "<input id=\"doc_action\" type=\"hidden\" value=\""+action+"\"/>"+
+                                                        "<input id=\"doc_id\" type=\"hidden\" value=\""+doc_id+"\"/>"+
+                                                        "<input id=\"doc_user_type\" type=\"hidden\" value=\""+user_type+"\"/>"+
+                                                        "<input id=\"1\" type=\"button\" value=\"Send\" class=\"btn btn-success\"  onclick=\"sendAction();\" style=\"margin-left:930px;\"/>"+
+                                                    "</div>"+
+                                                    "</form>");
+                                            } 
+
+                                            // Get the modal
+                                            var modal = document.getElementById('myModal');
+
+                                            // Get the <span> element that closes the modal
+                                            var span = document.getElementsByClassName("close")[0];
+
+                                            // When the user clicks on <span> (x), close the modal
+                                            span.onclick = function() {
+                                                $('#myModal').css("display","none");
+                                                $('#documents_button').css("display","block");
+                                                $('#documents_received_button').css("display","block");
+                                                $('#documents_sent_button').css("display","block");
+                                            }
+
+                                            // When the user clicks anywhere outside of the modal, close it
+                                            window.onclick = function(event) {
+                                                if (event.target == modal) {
+                                                    $('#myModal').css("display","none");
+                                                    $('#documents_button').css("display","block");
+                                                    $('#documents_received_button').css("display","block");
+                                                    $('#documents_sent_button').css("display","block");
+                                                }
+                                            }
+
+                                            function send() {
+                                                var email = $("#email").val();
+                                                var message = $("#message").val();
+                                                var doc_id = $('#doc_id').val();
+                                                var action  = $('#action option:selected').text(); 
+                                                var user_type = $('#doc_user_type').val();
+                                                console.log(user_type);
+                                                console.log(email);
+                                                console.log(message);
+                                                console.log(doc_id);
+                                                console.log(action);
+
+                                                if (email == "nestor.rodriguez@upr.edu" || email == "alida.minguela@upr.edu" || email == "jose.colom@upr.edu" || email == "jessica.cotrina@upr.du"){
+
+                                                    // Student sending document case
+                                                    if (email == "nestor.rodriguez@upr.edu"){
+                                                        $.getJSON('/_sendDocument', 
+                                                            { doc_id: doc_id,
+                                                              user_type: user_type,
+                                                              sent_to: email,
+                                                              message: message,
+                                                              action: action
+                                                            },
+                                                            function (sent) {
+                                                                console.log(sent)
+                                                                if (sent.status == 0){
+                                                                    alert("Document Sent!");
+                                                                    $('#myModal').css("display","none");
+                                                                    window.history.back();
+                                                                }
+                                                                else {
+                                                                    alert("ERROR! Cannot send document to \""+email+"\"");
+                                                                    console.log(sent);
+                                                                }
+                                                          });
+                                                    }
+
+                                                    else if (email == "alida.minguela@upr.edu"){
+                                                        console.log("Enviando a Alida");
+                                                        $.getJSON('/_sendDocument', 
+                                                            { doc_id: doc_id,
+                                                              user_type: user_type,
+                                                              sent_to: email,
+                                                              message: message,
+                                                              action: action
+                                                            },
+                                                            function (sent) {
+                                                                console.log(sent)
+                                                                if (sent.status == 0){
+                                                                    alert("Document Sent!");
+                                                                    $('#myModal').css("display","none");
+                                                                    window.history.back();
+                                                                }
+                                                                else {
+                                                                    alert("ERROR! Cannot send document to \""+email+"\"");
+                                                                    console.log(sent);
+                                                                }
+                                                          });
+                                                    }
+
+                                                    else if (email == "jose.colom@upr.edu"){
+                                                        $.getJSON('/_sendDocument', 
+                                                            { doc_id: doc_id,
+                                                              user_type: user_type,
+                                                              sent_to: email,
+                                                              message: message,
+                                                              action: action
+                                                            },
+                                                            function (sent) {
+                                                                console.log(sent)
+                                                                if (sent.status == 0){
+                                                                    alert("Document Sent!");
+                                                                    $('#myModal').css("display","none");
+                                                                    window.history.back();
+                                                                }
+                                                                else {
+                                                                    alert("ERROR! Cannot send document to \""+email+"\"");
+                                                                    console.log(sent);
+                                                                }
+                                                          });
+                                                    }
+                                                    else if (email == "jessica.cotrina@upr.edu"){
+                                                        console.log("Enviando a Jessica Cotrina");
+                                                        $.getJSON('/_sendDocument', 
+                                                            { doc_id: doc_id,
+                                                              user_type: user_type,
+                                                              sent_to: email,
+                                                              message: message,
+                                                              action: action
+                                                            },
+                                                            function (sent) {
+                                                                console.log(sent)
+                                                                if (sent.status == 0){
+                                                                    alert("Document Sent!");
+                                                                    $('#myModal').css("display","none");
+                                                                    window.history.back();
+                                                                }
+                                                                else {
+                                                                    alert("ERROR! Cannot send document to \""+email+"\"");
+                                                                    console.log(sent);
+                                                                }
+                                                          });
+                                                    }
+
+                                                
+                                                    else {
+                                                        alert("ERROR! Cannot send document to \""+email+"\"");
+                                                    }  
+
+                                                }  
+
+                                                else {
+                                                    alert("ERROR! Cannot send document to \""+email+"\"");
+                                                }               
+                                            }
+
+                                            function sendAction(action) {
+                                                var email = $("#email").val();
+                                                var message = $("#message").val();
+                                                var doc_id = $('#doc_id').val();
+                                                var action  = $('#action option:selected').text(); 
+                                                var user_type = $('#doc_user_type').val();
+                                                var action = global_action;
+                                                console.log(user_type);
+                                                console.log(email);
+                                                console.log(message);
+                                                console.log(doc_id);
+                                                console.log(action);
+
+                                                if (email == "nestor.rodriguez@upr.edu" || email == "alida.minguela@upr.edu" || email == "jose.colom@upr.edu" || email == "jessica.cotrina@upr.du"){
+
+                                                    // Student sending document case
+                                                    if (email == "nestor.rodriguez@upr.edu"){
+                                                        $.getJSON('/_sendDocument', 
+                                                            { doc_id: doc_id,
+                                                              user_type: user_type,
+                                                              sent_to: email,
+                                                              message: message,
+                                                              action: action
+                                                            },
+                                                            function (sent) {
+                                                                console.log(sent)
+                                                                if (sent.status == 0){
+                                                                    alert("Document Sent!");
+                                                                    $('#myModal').css("display","none");
+                                                                    window.history.back();
+                                                                }
+                                                                else {
+                                                                    alert("ERROR! Cannot send document to \""+email+"\"");
+                                                                    console.log(sent);
+                                                                }
+                                                          });
+                                                    }
+
+                                                    else if (email == "alida.minguela@upr.edu"){
+                                                        console.log("Enviando a Alida");
+                                                        $.getJSON('/_sendDocument', 
+                                                            { doc_id: doc_id,
+                                                              user_type: user_type,
+                                                              sent_to: email,
+                                                              message: message,
+                                                              action: action
+                                                            },
+                                                            function (sent) {
+                                                                console.log(sent)
+                                                                if (sent.status == 0){
+                                                                    alert("Document Sent!");
+                                                                    $('#myModal').css("display","none");
+                                                                    window.history.back();
+                                                                }
+                                                                else {
+                                                                    alert("ERROR! Cannot send document to \""+email+"\"");
+                                                                    console.log(sent);
+                                                                }
+                                                          });
+                                                    }
+
+                                                    else if (email == "jose.colom@upr.edu"){
+                                                        $.getJSON('/_sendDocument', 
+                                                            { doc_id: doc_id,
+                                                              user_type: user_type,
+                                                              sent_to: email,
+                                                              message: message,
+                                                              action: action
+                                                            },
+                                                            function (sent) {
+                                                                console.log(sent)
+                                                                if (sent.status == 0){
+                                                                    alert("Document Sent!");
+                                                                    $('#myModal').css("display","none");
+                                                                    window.history.back();
+                                                                }
+                                                                else {
+                                                                    alert("ERROR! Cannot send document to \""+email+"\"");
+                                                                    console.log(sent);
+                                                                }
+                                                          });
+                                                    }
+                                                    else if (email == "jessica.cotrina@upr.edu"){
+                                                        console.log("Enviando a Jessica Cotrina");
+                                                        $.getJSON('/_sendDocument', 
+                                                            { doc_id: doc_id,
+                                                              user_type: user_type,
+                                                              sent_to: email,
+                                                              message: message,
+                                                              action: action
+                                                            },
+                                                            function (sent) {
+                                                                console.log(sent)
+                                                                if (sent.status == 0){
+                                                                    alert("Document Sent!");
+                                                                    $('#myModal').css("display","none");
+                                                                    window.history.back();
+                                                                }
+                                                                else {
+                                                                    alert("ERROR! Cannot send document to \""+email+"\"");
+                                                                    console.log(sent);
+                                                                }
+                                                          });
+                                                    }
+
+                                                
+                                                    else {
+                                                        alert("ERROR! Cannot send document to \""+email+"\"");
+                                                    }  
+
+                                                }  
+
+                                                else {
+                                                    alert("ERROR! Cannot send document to \""+email+"\"");
+                                                }               
+                                            }
+                                    </script>
                                     </table>
                                 </div>
                             </div>

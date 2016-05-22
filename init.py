@@ -43,8 +43,11 @@ def newAssistantship():
 
 @app.route('/_getDocument')
 def getDocument():
+    print "Entre a Get Document"
     doc_id = request.args["doc_id"]
     user_type = request.args["user_type"]
+    print "doc_id",doc_id
+    print "user_type",user_type
 
     if int(user_type) == 0: 
         documents = readDB('data/student_documents.json')["documents"]
@@ -58,7 +61,7 @@ def getDocument():
     if int(user_type) == 3: 
         documents = readDB('data/director_documents.json')["documents"]
 
-    # print "documents",documents
+    print "documents",documents
 
     for document in documents:
         if int(document["id"]) == int(doc_id):
@@ -581,6 +584,7 @@ def sendAndSaveDocument():
         document["last_edited"] = "Student: Jessica Cotrina"
         document["message"] = message
         document["action"]  = action
+        document["sent_to"] = sent_to
         updateDB('data/student_documents.json',document)
 
     # If document is being sent by professor 
@@ -601,6 +605,7 @@ def sendAndSaveDocument():
         document["last_edited"] = "Professor: Nestor Rodriguez"
         document["message"] = message
         document["action"]  = action
+        document["sent_to"] = sent_to
         updateDB('data/professor_documents.json',document)
 
     # If document is being sent by assistant
@@ -621,6 +626,7 @@ def sendAndSaveDocument():
         document["last_edited"] = "Assistant: Alida Minguela"
         document["message"] = message
         document["action"]  = action
+        document["sent_to"] = sent_to
         updateDB('data/assistant_documents.json',document)
 
     # If document is being sent by director 
@@ -641,6 +647,7 @@ def sendAndSaveDocument():
         document["last_edited"] = "Director: Jose Colom"
         document["message"] = message
         document["action"]  = action
+        document["sent_to"] = sent_to
         updateDB('data/director_documents.json',document)
 
     # If document being sent to professor
@@ -672,6 +679,8 @@ def sendAndSaveDocument():
         sent = {'status':0}
     
     return jsonify(sent)
+
+
 
 @app.route("/doc_info",methods=['GET'])
 def getDocumentInfo():
