@@ -210,6 +210,8 @@
                     cell.innerHTML = "<strong>Type</strong>";
                     var cell = row.insertCell(4);
                     cell.innerHTML = "<strong>Status</strong>"; 
+                    var cell = row.insertCell(5);
+                    cell.innerHTML = "<strong>Required Action</strong>"; 
                 }
 
                 function insertSentDocumentTableHeaders() {
@@ -225,6 +227,7 @@
                     cell.innerHTML = "<strong>Type</strong>";
                     var cell = row.insertCell(4);
                     cell.innerHTML = "<strong>Status</strong>";
+
                 }
                 
 
@@ -255,7 +258,7 @@
                                 // console.log(the_documents[i]);
                                 doc = the_documents[i]
                                 var row = received_document_table_header.insertRow(i+1);
-                                for (var j = 0; j < 5; j++){
+                                for (var j = 0; j < 6; j++){
                                     var cell = row.insertCell(j);
                                     if (j == 0){
                                         cell.innerHTML = "<a href=\"/doc_info?id="+doc.id+"\">"+doc.name+"</a>";
@@ -271,6 +274,9 @@
                                     }
                                     if (j == 4){
                                         cell.innerHTML = doc.status;
+                                    }
+                                    if (j == 5){
+                                        cell.innerHTML = doc.action;
                                     }
                                 }
                             }
@@ -400,6 +406,9 @@
                                     }
                                     if (j == 4){
                                         cell.innerHTML = doc.status;
+                                    }
+                                    if (j == 5){
+                                        cell.innerHTML = doc.action;
                                     }
                                 }
                             }
@@ -544,6 +553,7 @@
                                     if (j == 4){
                                         cell.innerHTML = doc.status;
                                     }
+
                                 }
                             }
                         }
@@ -677,6 +687,9 @@
                                     if (j == 4){
                                         cell.innerHTML = doc.status;
                                     }
+                                    if (j == 5){
+                                        cell.innerHTML = doc.action;
+                                    }
                                 }
                             }
                         }
@@ -720,19 +733,20 @@
                     $("#modal_title").text('New Assistantship Request');
                     $('#modal_body').empty();
                     $('#modal_body').append(
-                        "<br><p> Requested by: Alida Minguela </p><br>" + 
-                        "<form>" +
-                            "<input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Student Name\" id=\"student\"   value=\"\" required> <br>" + 
-                            "<input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Student Number\" id=\"student_number\"   value=\"\" required> <br>" + 
-                            "<input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Department\" id=\"department\"   value=\"\" required> <br>" + 
-                            "<input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Major\" id=\"major\"   value=\"\" required> <br>" +
-                            "<input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Advisor\" id=\"advisor\"   value=\"\" required>" + 
+                        "<p> Requested by: Alida Minguela </p><br>" + 
+                        "<form>"  +
+                         "Student Name:<input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Student Name\" id=\"student\"   value=\"\" required><br>"
+                             + 
+                            "Student Number<input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Student Number\" id=\"student_number\"   value=\"\" required> <br>" + 
+                            "Student Number:<input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Department\" id=\"department\"   value=\"\" required> <br>" + 
+                            "Major:<input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Major\" id=\"major\"   value=\"\" required> <br>" +
+                            "Advisor:<input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Advisor\" id=\"advisor\"   value=\"\" required>" + 
                             "<br>" + 
-                            "<input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Project/Class\" id=\"project\"  value=\"\" required>" + 
+                            "Project/Class:<input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Project/Class\" id=\"project\"  value=\"\" required>" + 
                             "<br>" +
-                            "<input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Task\" id=\"task\"   value=\"\" required>" +
+                            "Task:<input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Task\" id=\"task\"   value=\"\" required>" +
                             "<br>" +
-                            "<select id=\"type\" class=\"form-control\">" +
+                            "Research<select id=\"type\" class=\"form-control\">" +
                                 "<option value=\"research\">Research</option>" +
                                 "<option value=\"ta\">TA</option> </select>" + 
                                 "</br>" + 
@@ -750,12 +764,12 @@
                     $('#modal_body').empty();
                     $('#modal_body').append(
                         "<br><p>Requested by: Alida Minguela</p>" + 
-                        "<form><input type=\"text\" pattern=\"[A-Za-z]\"  class=\"form-control\" placeholder=\"Conference name\" id=\"name\"   value=\"\" required><br>" + 
-                            "<input type=\"text\" pattern=\"[A-Za-z]\"  class=\"form-control\" placeholder=\"Travel Location\" id=\"travelLocation\"   value=\"\" required><br>"+ 
-                            "<input type=\"date\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Departure Date\" id=\"departureDate\"   value=\"\" required><br>" + 
-                            "<input type=\"date\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Return date\" id=\"returnDate\"   value=\"\" required><br>" + 
-                            "<input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Traveler Name\" id=\"advisor\"  value=\"\" required><br>" + 
-                            "<input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Purpose\" id=\"purpose\"   value=\"\" required></br><input  value=\"Create and Send\" onclick=\"insertTravelAndSend()\" class=\"btn btn-lg btn-success\" style=\"color:white; margin-left:570px; background-color: #5CB85C\"><br> " + 
+                        "<form>Conference name:<input type=\"text\" pattern=\"[A-Za-z]\"  class=\"form-control\" placeholder=\"Conference name\" id=\"name\"   value=\"\" required><br>" + 
+                            "Travel Location:<input type=\"text\" pattern=\"[A-Za-z]\"  class=\"form-control\" placeholder=\"Travel Location\" id=\"travelLocation\"   value=\"\" required><br>"+ 
+                            "Departure Date:<input type=\"date\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Departure Date\" id=\"departureDate\"   value=\"\" required><br>" + 
+                            "Return date:<input type=\"date\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Return date\" id=\"returnDate\"   value=\"\" required><br>" + 
+                            "Traveler Name:<input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Traveler Name\" id=\"advisor\"  value=\"\" required><br>" + 
+                            "Purpose:<input type=\"text\" pattern=\"[A-Za-z]\" class=\"form-control\" placeholder=\"Purpose\" id=\"purpose\"   value=\"\" required></br><input  value=\"Create and Send\" onclick=\"insertTravelAndSend()\" class=\"btn btn-lg btn-success\" style=\"color:white; margin-left:570px; background-color: #5CB85C\"><br> " + 
                         "</form>");
                 }
 

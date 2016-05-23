@@ -103,7 +103,7 @@
             <!-- /.row -->
              <!-- /.panel-heading -->
             <h4>Sent by <small id="sendee">Sender</small></h4>
-            <h4>Action Required 
+            <h4 id="required_action">Action Required 
                 <button id="action_button" class="btn btn-success" onclick="showSendModal()">
                     <span id="action_title"></span>
                 </button>
@@ -171,6 +171,7 @@
                                             var table = document.getElementById("document_table");
                                             var header = table.createTHead();
                                             var global_action = ""
+                                            var global_user_type = 0
                                             
                                             var doc_id = '{{document_id}}';
                                             console.log(doc_id);
@@ -229,12 +230,13 @@
                                                     var status = doc_info.status;
                                                     var type = doc_info.type;
                                                     var travel_location = doc_info.travel_location;
+                                                    var last_edited = last_doc.last_edited;
                                                     
                                                     // Inserting for Travel Request
                                                     $('#faculty').text("\t"+faculty);
                                                     $('#major').text("\t"+major);
                                                     $('#requester').text("\t"+requester);
-                                                    $('#sendee').text("\t"+advisor);
+                                                    $('#sendee').text("\t"+last_edited);
                                                     $('#action').text("\t"+action);
                                                     $('#doc_message').text("\t"+message);
                                                     $('#name').text("\t"+name);
@@ -257,10 +259,24 @@
                                                         $("#travel_Location").css("display","none");
                                                         $("#lbtTravelLocation").css("display","none");
                                                     }
+
+                                                    // Changing user type based on email
+                                                    if (last_doc.sent_to == "jessica.cotrina@upr.edu"){
+                                                        global_user_type = 0;
+                                                    }
+                                                    if (last_doc.sent_to == "nestor.rodriguez@upr.edu"){
+                                                        global_user_type = 1;
+                                                    } 
+                                                    if (last_doc.sent_to == "alida.minguela@upr.edu"){
+                                                        global_user_type = 2;
+                                                    }
+                                                    if (last_doc.sent_to == "jose.colom@upr.edu"){
+                                                        global_user_type = 3;
+                                                    }   
                                                     
                                                     // Changing buttons based on action
                                                     
-                                                    console.log(doc_info.action);
+                                                    console.log(last_doc.action);
                                                     // console.log(typeof(doc_info.action) !=-1);
                                                     var user_type = 0;
                                                     if (doc_info.last_edited.indexOf("Student") !=-1 && doc["history"].length == 1){
@@ -283,8 +299,9 @@
                                                         $('#action_title').text("Send");
                                                         $('#action_button').attr("onclick","showSendModal("+doc_info.id+","+user_type+")");
                                                     }
-                                                    if (last_doc.action == "Endose"){
+                                                    if (last_doc.action == "Endose" || last_doc.action == "endosed"){
                                                         $('#action_title').text("Endose");
+                                                        $('#title_action').text("Endose");
                                                         $('#action_button').css("display","none");
                                                         $('#action_button').attr("value","verified");
                                                         $('#action_button2').attr("onclick","showSendActionModal("+doc_info.id+","+user_type+",\"Endorsed\")");
@@ -292,29 +309,43 @@
                                                         global_action = "endosed";
 
                                                     }
-                                                    if (last_doc.action == "Sign"){
+                                                    if (last_doc.action == "Sign" || last_doc.action == "signed"){
                                                         $('#action_title').text("Sign");
                                                         $('#action_button').css("display","none");
+                                                        $('#title_action').text("Sign");
                                                         $('#action_button').attr("value","verified");
                                                         $('#action_button2').attr("onclick","showSendActionModal("+doc_info.id+","+user_type+",\"Signed\")");
                                                         $('#action_title2').text("Send");
                                                         global_action = "signed";
                                                     }
-                                                    if (last_doc.action == "Authorize"){
+                                                    if (last_doc.action == "Authorize" || last_doc.action == "authorized"){
                                                         $('#action_title').text("Authorize");
                                                         $('#action_button').css("display","none");
+                                                        $('#title_action').text("Authorize");
                                                         $('#action_button').attr("value","verified");
                                                         $('#action_button2').attr("onclick","showSendActionModal("+doc_info.id+","+user_type+",\"Authorized\")");
                                                         $('#action_title2').text("Send");
                                                         global_action = "authorized";
                                                     }
-                                                    if (last_doc.action == "Verify"){
+                                                    if (last_doc.action == "Verify" || last_doc.action == "verified"){
                                                         $('#title_action').text("Verify ");
                                                         $('#action_button').css("display","none");
                                                         $('#action_button').attr("value","verified");
                                                         $('#action_button2').attr("onclick","showSendActionModal("+doc_info.id+","+user_type+",\"Verified\")");
                                                         $('#action_title2').text("Send");
                                                         global_action = "verified";
+                                                    }
+                                                    if (last_doc.action == "Completed" || last_doc.action == "completed"){
+                                                        $("#action_title").text("None: Completed")
+                                                        $('#title_action').text("None: Completed");
+                                                        $('#checkbox_type').css("display","none");
+                                                        $('#action_button').css("display","none");
+                                                        $('#action_button').attr("value","verified");
+                                                        // $('#action_button2').attr("onclick","showSendActionModal("+doc_info.id+","+user_type+",\"Verified\")");
+                                                        // $('#action_title2').text("Send");
+                                                        // global_action = "completed";
+                                                        // $('#required_action').text("Action")
+                                                       
                                                     }
                                                         
                                                 
@@ -344,12 +375,12 @@
                                                 $("#modal_title").text('Send Document');
                                                 $('#modal_body').empty();
 
-                                                console.log(doc_id);
+                                                // console.log(doc_id);
                                                 // console.log(doc_name);
-                                                console.log(user_type);
+                                                // console.log(user_type);
 
                                                 $.getJSON('/_getDocument',{
-                                                        user_type: user_type,
+                                                        user_type: global_user_type,
                                                         doc_id: doc_id
                                                     },
                                                     function (document) {
@@ -357,7 +388,7 @@
                                                         $("#m_title").text("\t"+document.name);
                                                     });
 
-                                                console.log(user_type);
+                                                // console.log(user_type);
 
                                                 $('#modal_body').append("<form role=\"form\">"+
                                                     "<div class=\"form-group\"> <br>"+
@@ -398,10 +429,10 @@
                                                 console.log(checked);
                                                 console.log(doc_id);
                                                 // console.log(doc_name);
-                                                console.log(user_type);
+                                                // console.log(user_type);
                                                 
                                                 $.getJSON('/_getDocument',{
-                                                        user_type: user_type,
+                                                        user_type: global_user_type,
                                                         doc_id: doc_id
                                                     },
                                                     function (document) {
@@ -409,7 +440,7 @@
                                                         $("#m_title").text("\t"+document.name);
                                                     });
 
-                                                console.log(user_type);
+                                                console.log(global_user_type);
 
                                                 if (action == "Verified"){
                                                     var send_action = "verified";
@@ -429,6 +460,16 @@
 
                                                         "</label>"+
                                                         "<p>"+action+" Document</p>"+
+                                                    "</div>"+
+                                                    "<div class=\"form-group\">"+
+                                                        "<label>New Required Action:</label>"+
+                                                        "<select id=\"action\">" +
+                                                            "<option value=\"authorize\">Authorize</option>"+
+                                                            "<option value=\"verify\">Verify</option>"+
+                                                            "<option value=\"sign\">Sign</option>"+
+                                                            "<option value=\"endose\">Endose</option>"+
+                                                            "<option value=\"complete\">Completed</option>"+
+                                                        "</select>" +
                                                     "</div>"+
                                                     "<div class=\"form-group\">"+
                                                         "<label>Message:</label>"+
@@ -472,8 +513,8 @@
                                                 var email = $("#email").val();
                                                 var message = $("#message").val();
                                                 var doc_id = $('#doc_id').val();
-                                                var action  = $('#action option:selected').text(); 
-                                                var user_type = $('#doc_user_type').val();
+                                                var action  = $('#action option:selected').text().length > 1 ? $('#action option:selected').text() : global_action; 
+                                                // var user_type = $('#doc_user_type').val();
                                                 console.log(user_type);
                                                 console.log(email);
                                                 console.log(message);
@@ -486,7 +527,7 @@
                                                     if (email == "nestor.rodriguez@upr.edu"){
                                                         $.getJSON('/_sendDocument', 
                                                             { doc_id: doc_id,
-                                                              user_type: user_type,
+                                                              user_type: global_user_type,
                                                               sent_to: email,
                                                               message: message,
                                                               action: action
@@ -509,7 +550,7 @@
                                                         console.log("Enviando a Alida");
                                                         $.getJSON('/_sendDocument', 
                                                             { doc_id: doc_id,
-                                                              user_type: user_type,
+                                                              user_type: global_user_type,
                                                               sent_to: email,
                                                               message: message,
                                                               action: action
@@ -531,7 +572,7 @@
                                                     else if (email == "jose.colom@upr.edu"){
                                                         $.getJSON('/_sendDocument', 
                                                             { doc_id: doc_id,
-                                                              user_type: user_type,
+                                                              user_type: global_user_type,
                                                               sent_to: email,
                                                               message: message,
                                                               action: action
@@ -553,7 +594,7 @@
                                                         console.log("Enviando a Jessica Cotrina");
                                                         $.getJSON('/_sendDocument', 
                                                             { doc_id: doc_id,
-                                                              user_type: user_type,
+                                                              user_type: global_user_type,
                                                               sent_to: email,
                                                               message: message,
                                                               action: action
@@ -590,23 +631,24 @@
                                                 var doc_id = $('#doc_id').val();
                                                 var action  = $('#action option:selected').text(); 
                                                 var user_type = $('#doc_user_type').val();
-                                                var action = global_action;
-                                                console.log(user_type);
+                                                var action = $('#action option:selected').text().length > 1 ? $('#action option:selected').text() : global_action;
+                                                console.log(global_user_type);
                                                 console.log(email);
                                                 console.log(message);
                                                 console.log(doc_id);
                                                 console.log(action);
 
-                                                if (email == "nestor.rodriguez@upr.edu" || email == "alida.minguela@upr.edu" || email == "jose.colom@upr.edu" || email == "jessica.cotrina@upr.du"){
+                                                if (email == "nestor.rodriguez@upr.edu" || email == "alida.minguela@upr.edu" || email == "jose.colom@upr.edu" || email == "jessica.cotrina@upr.edu"){
 
                                                     // Student sending document case
                                                     if (email == "nestor.rodriguez@upr.edu"){
                                                         $.getJSON('/_sendDocument', 
                                                             { doc_id: doc_id,
-                                                              user_type: user_type,
+                                                              user_type: global_user_type,
                                                               sent_to: email,
                                                               message: message,
-                                                              action: action
+                                                              action: action,
+                                                              status: action,
                                                             },
                                                             function (sent) {
                                                                 console.log(sent)
@@ -626,7 +668,7 @@
                                                         console.log("Enviando a Alida");
                                                         $.getJSON('/_sendDocument', 
                                                             { doc_id: doc_id,
-                                                              user_type: user_type,
+                                                              user_type: global_user_type,
                                                               sent_to: email,
                                                               message: message,
                                                               action: action
@@ -648,7 +690,7 @@
                                                     else if (email == "jose.colom@upr.edu"){
                                                         $.getJSON('/_sendDocument', 
                                                             { doc_id: doc_id,
-                                                              user_type: user_type,
+                                                              user_type: global_user_type,
                                                               sent_to: email,
                                                               message: message,
                                                               action: action
@@ -670,7 +712,7 @@
                                                         console.log("Enviando a Jessica Cotrina");
                                                         $.getJSON('/_sendDocument', 
                                                             { doc_id: doc_id,
-                                                              user_type: user_type,
+                                                              user_type: global_user_type,
                                                               sent_to: email,
                                                               message: message,
                                                               action: action

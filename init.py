@@ -562,7 +562,18 @@ def sendAndSaveDocument():
     user_type = request.args['user_type']
     sent_to = request.args['sent_to']
     message = request.args['message']
-    action = request.args['action']
+    action = request.args['action'] if request.args['action'] else "Sent"
+    if action == "Authorize":
+        action_title = "Waiting for authorization"
+    if action == "Sign":
+        action_title = "Waiting for signature"
+    if action == "Verify":
+        action_title = "Waiting for verification"
+    if action == "Endose":
+        action_title = "Waiting for endorsement"
+    if action == "Sent":
+        action_title = "Sent"
+    # status = request.args['status'] ? request.args['status'] else "Sent"
     sent = {'status':-1}
     print doc_id, user_type, sent_to, sent, action
 
@@ -579,12 +590,13 @@ def sendAndSaveDocument():
                 document = doc
             # elif doc["name"] == doc_name + " Travel Request":
             #     document = doc
-        document["status"] = "Sent"
+        document["status"] = action_title
         document["sent_status"] = "sent"
         document["last_edited"] = "Student: Jessica Cotrina"
         document["message"] = message
         document["action"]  = action
         document["sent_to"] = sent_to
+        # document[""]
         updateDB('data/student_documents.json',document)
 
     # If document is being sent by professor 
@@ -600,7 +612,7 @@ def sendAndSaveDocument():
                 document = doc
             # elif doc["name"] == doc_name + " Travel Request":
             #     document = doc
-        document["status"] = "Sent"
+        document["status"] = action
         document["sent_status"] = "sent"
         document["last_edited"] = "Professor: Nestor Rodriguez"
         document["message"] = message
@@ -621,7 +633,7 @@ def sendAndSaveDocument():
                 document = doc
             # elif doc["name"] == doc_name + " Travel Request":
             #     document = doc
-        document["status"] = "Sent"
+        document["status"] = action
         document["sent_status"] = "sent"
         document["last_edited"] = "Assistant: Alida Minguela"
         document["message"] = message
@@ -642,7 +654,7 @@ def sendAndSaveDocument():
                 document = doc
             # elif doc["name"] == doc_name + " Travel Request":
             #     document = doc
-        document["status"] = "Sent"
+        document["status"] = action
         document["sent_status"] = "sent"
         document["last_edited"] = "Director: Jose Colom"
         document["message"] = message
@@ -653,28 +665,65 @@ def sendAndSaveDocument():
     # If document being sent to professor
     if sent_to == "nestor.rodriguez@upr.edu":
         document["sent_status"] = "received"
-        writeDB('data/professor_documents.json',document)
+        documents = readDB('data/professor_documents.json')["documents"]
+        print "Professor Documents",documents
+        document_exists = False
+        for d in documents:
+            if int(d["id"]) == int(doc_id):
+                document_exists = True
+        print "Document Exists? ", document_exists 
+        if document_exists == True:
+            updateDB('data/professor_documents.json',document)
+        else:
+            writeDB('data/professor_documents.json',document)
         writeDB('data/document_history.json',document)
         sent = {'status':0}
 
     # If document being set to assistant
     if sent_to == "alida.minguela@upr.edu":
         document["sent_status"] = "received"
-        writeDB('data/assistant_documents.json',document)
+        documents = readDB('data/assistant_documents.json')["documents"]
+        document_exists = False
+        for d in documents:
+            if int(d["id"]) == int(doc_id):
+                document_exists = True
+        print "Document Exists? ", document_exists 
+        if document_exists == True:
+            updateDB('data/assistant_documents.json',document)
+        else:
+            writeDB('data/assistant_documents.json',document)
         writeDB('data/document_history.json',document)
         sent = {'status':0}
 
     # If document being sent to director
     if sent_to == "jose.colom@upr.edu":
         document["sent_status"] = "received"
-        writeDB('data/director_documents.json',document)
+        documents = readDB('data/director_documents.json')["documents"]
+        document_exists = False
+        for d in documents:
+            if int(d["id"]) == int(doc_id):
+                document_exists = True
+        print "Document Exists? ", document_exists 
+        if document_exists == True:
+            updateDB('data/director_documents.json',document)
+        else:
+            writeDB('data/director_documents.json',document)
         writeDB('data/document_history.json',document)
         sent = {'status':0}
 
     # If document being sent to student
     if sent_to == "jessica.cotrina@upr.edu":
         document["sent_status"] = "received"
-        writeDB('data/student_documents.json',document)
+        documents = readDB('data/student_documents.json')["documents"]
+        document_exists = False
+        for d in documents:
+            if int(d["id"]) == int(doc_id):
+                document_exists = True
+        print "Document Exists? ", document_exists 
+        if document_exists == True:
+            updateDB('data/student_documents.json',document)
+        else:
+            writeDB('data/student_documents.json',document)
         writeDB('data/document_history.json',document)
         sent = {'status':0}
     
